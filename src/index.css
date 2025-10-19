@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 195 100% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 195 100% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 195 100% 10%;
+
+    /* Aqua Blue Primary - #4FC3F7 */
+    --primary: 195 91% 64%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 195 91% 74%;
+
+    /* Deep Teal Secondary - #015D67 */
+    --secondary: 186 99% 20%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 195 20% 96%;
+    --muted-foreground: 195 10% 45%;
+
+    /* Earth Brown Accent */
+    --accent: 30 40% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 195 20% 90%;
+    --input: 195 20% 90%;
+    --ring: 195 91% 64%;
+
+    --radius: 0.75rem;
+
+    /* Water-themed gradients */
+    --gradient-water: linear-gradient(135deg, hsl(195 91% 64%), hsl(186 99% 20%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(195 20% 98%));
+    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(195 91% 64% / 0.1), transparent 70%);
+
+    /* Shadows */
+    --shadow-soft: 0 2px 20px -4px hsl(195 91% 64% / 0.1);
+    --shadow-water: 0 8px 32px -8px hsl(195 91% 64% / 0.25);
+    --shadow-glow: 0 0 40px hsl(195 91% 74% / 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Water ripple animation */
+  @keyframes ripple {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes wave {
+    0% {
+      transform: translateX(0) translateY(0);
+    }
+    50% {
+      transform: translateX(-25%) translateY(-5px);
+    }
+    100% {
+      transform: translateX(0) translateY(0);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(var(--primary) / 0.5);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-ripple {
+    animation: ripple 1.5s ease-out infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-wave {
+    animation: wave 8s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s linear infinite;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      hsl(var(--primary) / 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 1000px 100%;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.5s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.4s ease-out;
+  }
+
+  /* Glassmorphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(79, 195, 247, 0.2);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+  }
+
+  .glass-card:hover {
+    box-shadow: var(--shadow-water);
+    transform: translateY(-2px);
+  }
+
+  /* Interactive elements */
+  .interactive-card {
+    transition: var(--transition-smooth);
+    cursor: pointer;
+  }
+
+  .interactive-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-water);
+  }
+
+  .interactive-card:active {
+    transform: translateY(-2px);
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
