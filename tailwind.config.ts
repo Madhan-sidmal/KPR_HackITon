@@ -67,6 +67,10 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        "logo-glow": {
+          "0%, 100%": { filter: "drop-shadow(0 0 8px hsl(var(--primary) / 0.3))" },
+          "50%": { filter: "drop-shadow(0 0 16px hsl(var(--primary) / 0.6))" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -114,6 +118,7 @@ export default {
         },
       },
       animation: {
+        "logo-glow": "logo-glow 3s ease-in-out infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         ripple: "ripple 1.5s ease-out infinite",

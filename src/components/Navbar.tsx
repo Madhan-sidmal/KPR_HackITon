@@ -1,13 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { Droplet, Menu, X, Building2, Users, Brain, UserCircle, ShoppingBag } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthModal from "./AuthModal";
+import logo from "@/assets/logo-paryavaran-sahyog.png";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { name: "Map", href: "/map", icon: null },
@@ -23,18 +33,30 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled ? 'glass border-b border-border/50 shadow-lg' : 'bg-transparent'
+    }`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2">
+          <a 
+            href="/" 
+            className="flex items-center gap-3 group"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
             <div className="relative">
-              <Droplet className="w-8 h-8 text-primary" fill="currentColor" />
-              <div className="absolute inset-0 animate-ripple">
-                <Droplet className="w-8 h-8 text-primary" />
-              </div>
+              <img 
+                src={logo} 
+                alt="ParyavaranSahyog Logo" 
+                className="w-10 h-10 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3"
+              />
+              <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-primary via-primary-glow to-secondary bg-clip-text text-transparent transition-all duration-300 group-hover:tracking-wide">
               ParyavaranSahyog
             </span>
           </a>
