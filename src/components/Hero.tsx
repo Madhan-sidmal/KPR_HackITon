@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Droplet, Users, Building2, TrendingUp, Wind, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import heroImage from "@/assets/hero-water-landscape.jpg";
+import ConnectedPlanetBackground from "./ConnectedPlanetBackground";
 
 const Hero = () => {
   const [stats, setStats] = useState({
@@ -47,36 +48,9 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-        <div className="absolute inset-0 opacity-30">
-          <img 
-            src={heroImage}
-            alt="India's Water Landscape"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
-      </div>
-
-      {/* Floating Water Droplets */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-float opacity-20"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${i * 0.5}s`,
-              animationDuration: `${3 + Math.random() * 2}s`,
-            }}
-          >
-            <Droplet className="w-8 h-8 text-primary" />
-          </div>
-        ))}
-      </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-primary/5 to-secondary/5">
+      {/* Connected Planet Background Animation */}
+      <ConnectedPlanetBackground />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-20">
@@ -94,11 +68,11 @@ const Hero = () => {
               </div>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-              India's Unified{" "}
               <span className="bg-gradient-to-r from-primary via-primary-glow to-secondary bg-clip-text text-transparent">
-                Environmental
+                Guardians of Tomorrow
               </span>
-              {" "}Intelligence Platform
+              <br />
+              <span className="text-3xl md:text-5xl">India's Environmental Intelligence Platform</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
               Real-time air and water quality monitoring, AI-powered insights, and nationwide citizen action for a healthier India

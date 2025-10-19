@@ -9,48 +9,49 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 195 100% 10%;
+    --foreground: 210 100% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 195 100% 10%;
+    --card-foreground: 210 100% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 195 100% 10%;
+    --popover-foreground: 210 100% 12%;
 
-    /* Aqua Blue Primary - #4FC3F7 */
-    --primary: 195 91% 64%;
+    /* Vibrant Teal Primary - #00BFA6 */
+    --primary: 168 100% 37%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 195 91% 74%;
+    --primary-glow: 168 100% 50%;
 
-    /* Deep Teal Secondary - #015D67 */
-    --secondary: 186 99% 20%;
+    /* Forest Green Secondary - #388E3C */
+    --secondary: 122 42% 39%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 195 20% 96%;
-    --muted-foreground: 195 10% 45%;
+    --muted: 168 15% 96%;
+    --muted-foreground: 168 10% 45%;
 
-    /* Earth Brown Accent */
-    --accent: 30 40% 45%;
+    /* Deep Blue Accent - #0A2A4D */
+    --accent: 210 75% 17%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 195 20% 90%;
-    --input: 195 20% 90%;
-    --ring: 195 91% 64%;
+    --border: 168 20% 90%;
+    --input: 168 20% 90%;
+    --ring: 168 100% 37%;
 
     --radius: 0.75rem;
 
-    /* Water-themed gradients */
-    --gradient-water: linear-gradient(135deg, hsl(195 91% 64%), hsl(186 99% 20%));
-    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(195 20% 98%));
-    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(195 91% 64% / 0.1), transparent 70%);
+    /* Guardians of Tomorrow gradients */
+    --gradient-water: linear-gradient(135deg, hsl(168 100% 37%), hsl(122 42% 39%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%), hsl(168 20% 98%));
+    --gradient-glow: radial-gradient(circle at 50% 0%, hsl(168 100% 37% / 0.1), transparent 70%);
+    --gradient-flow: linear-gradient(90deg, hsl(195 100% 50% / 0.15), hsl(122 42% 39% / 0.15));
 
     /* Shadows */
-    --shadow-soft: 0 2px 20px -4px hsl(195 91% 64% / 0.1);
-    --shadow-water: 0 8px 32px -8px hsl(195 91% 64% / 0.25);
-    --shadow-glow: 0 0 40px hsl(195 91% 74% / 0.3);
+    --shadow-soft: 0 2px 20px -4px hsl(168 100% 37% / 0.1);
+    --shadow-water: 0 8px 32px -8px hsl(168 100% 37% / 0.25);
+    --shadow-glow: 0 0 40px hsl(168 100% 50% / 0.3);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
