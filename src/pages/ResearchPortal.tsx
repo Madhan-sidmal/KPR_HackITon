@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PredictiveSandbox from "@/components/PredictiveSandbox";
 
 const ResearchPortal = () => {
   const datasets = [
@@ -101,8 +102,9 @@ const ResearchPortal = () => {
         </div>
 
         <Tabs defaultValue="datasets" className="space-y-6">
-          <TabsList className="grid w-full max-w-2xl grid-cols-4">
+          <TabsList className="grid w-full max-w-2xl grid-cols-5">
             <TabsTrigger value="datasets">Datasets</TabsTrigger>
+            <TabsTrigger value="sandbox">Sandbox</TabsTrigger>
             <TabsTrigger value="models">My Models</TabsTrigger>
             <TabsTrigger value="publications">Publications</TabsTrigger>
             <TabsTrigger value="insights">Insights Feed</TabsTrigger>
@@ -177,6 +179,11 @@ const ResearchPortal = () => {
                 <Button className="w-full">Submit Request</Button>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Sandbox Tab */}
+          <TabsContent value="sandbox">
+            <PredictiveSandbox />
           </TabsContent>
 
           {/* Models Tab */}

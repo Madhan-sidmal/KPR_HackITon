@@ -29,6 +29,7 @@ import Footer from "@/components/Footer";
 import ChallengeCard from "@/components/ChallengeCard";
 import BadgeShowcase from "@/components/BadgeShowcase";
 import InteractiveMap from "@/components/InteractiveMap";
+import ImpactTiers from "@/components/ImpactTiers";
 
 const CitizenPortal = () => {
   const userStats = {
@@ -189,9 +190,10 @@ const CitizenPortal = () => {
         </div>
 
         <Tabs defaultValue="home" className="space-y-6">
-          <TabsList className="grid w-full max-w-3xl grid-cols-5">
+          <TabsList className="grid w-full max-w-4xl grid-cols-6">
             <TabsTrigger value="home">Home</TabsTrigger>
             <TabsTrigger value="map">Explore Map</TabsTrigger>
+            <TabsTrigger value="tiers">Impact Tiers</TabsTrigger>
             <TabsTrigger value="challenges">Challenges</TabsTrigger>
             <TabsTrigger value="report">Report Issue</TabsTrigger>
             <TabsTrigger value="badges">My Badges</TabsTrigger>
@@ -315,6 +317,11 @@ const CitizenPortal = () => {
                 <InteractiveMap />
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Impact Tiers Tab */}
+          <TabsContent value="tiers" className="animate-fade-in">
+            <ImpactTiers />
           </TabsContent>
 
           <TabsContent value="challenges" className="space-y-6 animate-fade-in">

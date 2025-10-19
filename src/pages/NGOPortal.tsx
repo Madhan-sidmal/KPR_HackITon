@@ -24,6 +24,8 @@ import {
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ImpactReportGenerator from "@/components/ImpactReportGenerator";
+import CoalitionBuilder from "@/components/CoalitionBuilder";
 
 const NGOPortal = () => {
   const myProjects = [
@@ -153,8 +155,9 @@ const NGOPortal = () => {
         </Card>
 
         <Tabs defaultValue="projects" className="space-y-6">
-          <TabsList className="grid w-full max-w-3xl grid-cols-5">
+          <TabsList className="grid w-full max-w-4xl grid-cols-6">
             <TabsTrigger value="projects">My Projects</TabsTrigger>
+            <TabsTrigger value="reports">Impact Reports</TabsTrigger>
             <TabsTrigger value="feed">Impact Feed</TabsTrigger>
             <TabsTrigger value="donations">Donations</TabsTrigger>
             <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
@@ -309,6 +312,11 @@ const NGOPortal = () => {
             </Card>
           </TabsContent>
 
+          {/* Impact Reports Tab */}
+          <TabsContent value="reports">
+            <ImpactReportGenerator />
+          </TabsContent>
+
           {/* Impact Feed Tab */}
           <TabsContent value="feed">
             <Card>
@@ -422,14 +430,7 @@ const NGOPortal = () => {
 
           {/* Collaborate Tab */}
           <TabsContent value="collaborate">
-            <Card>
-              <CardHeader>
-                <CardTitle>Collaboration Zone</CardTitle>
-                <CardDescription>Connect with researchers and local bodies</CardDescription>
-              </CardHeader>
-              <CardContent className="text-center py-12">
-                <Users className="w-12 h-12 mx-auto mb-4 text-muted-foreground opacity-50" />
-                <p className="text-muted-foreground mb-4">Start collaborating with experts</p>
+            <CoalitionBuilder />
                 <Button variant="outline">Browse Researchers</Button>
               </CardContent>
             </Card>

@@ -25,6 +25,9 @@ import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, Cart
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useState } from "react";
+import PolicySimulator from "@/components/PolicySimulator";
+import AutomatedComplianceEngine from "@/components/AutomatedComplianceEngine";
+import MinisterialBriefing from "@/components/MinisterialBriefing";
 
 const GovernmentPortal = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -70,6 +73,9 @@ const GovernmentPortal = () => {
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "projects", label: "Projects", icon: FolderKanban },
+    { id: "policy", label: "Policy Simulator", icon: Brain },
+    { id: "compliance", label: "Compliance Engine", icon: AlertTriangle },
+    { id: "briefing", label: "Briefings", icon: FileText },
     { id: "approvals", label: "Approvals", icon: CheckCircle },
     { id: "insights", label: "AI Insights", icon: Brain },
     { id: "feed", label: "Feed Manager", icon: MessageSquare },
@@ -377,6 +383,15 @@ const GovernmentPortal = () => {
               </CardContent>
             </Card>
             )}
+
+            {/* Policy Simulator View */}
+            {activeView === "policy" && <PolicySimulator />}
+
+            {/* Compliance Engine View */}
+            {activeView === "compliance" && <AutomatedComplianceEngine />}
+
+            {/* Briefing View */}
+            {activeView === "briefing" && <MinisterialBriefing />}
 
             {/* Leaderboard View */}
             {activeView === "leaderboard" && (
