@@ -28,6 +28,8 @@ import { useState } from "react";
 import PolicySimulator from "@/components/PolicySimulator";
 import AutomatedComplianceEngine from "@/components/AutomatedComplianceEngine";
 import MinisterialBriefing from "@/components/MinisterialBriefing";
+import SmartFundAllocation from "@/components/SmartFundAllocation";
+import RestorationEfficiencyTracker from "@/components/RestorationEfficiencyTracker";
 
 const GovernmentPortal = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -76,9 +78,10 @@ const GovernmentPortal = () => {
     { id: "policy", label: "Policy Simulator", icon: Brain },
     { id: "compliance", label: "Compliance Engine", icon: AlertTriangle },
     { id: "briefing", label: "Briefings", icon: FileText },
+    { id: "funding", label: "Fund Allocation", icon: DollarSign },
+    { id: "efficiency", label: "Efficiency Tracker", icon: TrendingUp },
     { id: "approvals", label: "Approvals", icon: CheckCircle },
     { id: "insights", label: "AI Insights", icon: Brain },
-    { id: "feed", label: "Feed Manager", icon: MessageSquare },
     { id: "leaderboard", label: "Leaderboard", icon: Trophy },
   ];
 
@@ -392,6 +395,12 @@ const GovernmentPortal = () => {
 
             {/* Briefing View */}
             {activeView === "briefing" && <MinisterialBriefing />}
+
+            {/* Fund Allocation View */}
+            {activeView === "funding" && <SmartFundAllocation />}
+
+            {/* Efficiency Tracker View */}
+            {activeView === "efficiency" && <RestorationEfficiencyTracker />}
 
             {/* Leaderboard View */}
             {activeView === "leaderboard" && (

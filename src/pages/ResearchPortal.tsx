@@ -19,6 +19,8 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PredictiveSandbox from "@/components/PredictiveSandbox";
+import GrantFinder from "@/components/GrantFinder";
+import PeerReviewSystem from "@/components/PeerReviewSystem";
 
 const ResearchPortal = () => {
   const datasets = [
@@ -102,12 +104,14 @@ const ResearchPortal = () => {
         </div>
 
         <Tabs defaultValue="datasets" className="space-y-6">
-          <TabsList className="grid w-full max-w-2xl grid-cols-5">
+          <TabsList className="grid w-full max-w-4xl grid-cols-7 text-xs">
             <TabsTrigger value="datasets">Datasets</TabsTrigger>
             <TabsTrigger value="sandbox">Sandbox</TabsTrigger>
-            <TabsTrigger value="models">My Models</TabsTrigger>
+            <TabsTrigger value="models">Models</TabsTrigger>
+            <TabsTrigger value="grants">Grants</TabsTrigger>
+            <TabsTrigger value="review">Peer Review</TabsTrigger>
             <TabsTrigger value="publications">Publications</TabsTrigger>
-            <TabsTrigger value="insights">Insights Feed</TabsTrigger>
+            <TabsTrigger value="insights">Insights</TabsTrigger>
           </TabsList>
 
           {/* Datasets Tab */}
@@ -184,6 +188,16 @@ const ResearchPortal = () => {
           {/* Sandbox Tab */}
           <TabsContent value="sandbox">
             <PredictiveSandbox />
+          </TabsContent>
+
+          {/* Grants Tab */}
+          <TabsContent value="grants">
+            <GrantFinder />
+          </TabsContent>
+
+          {/* Peer Review Tab */}
+          <TabsContent value="review">
+            <PeerReviewSystem />
           </TabsContent>
 
           {/* Models Tab */}

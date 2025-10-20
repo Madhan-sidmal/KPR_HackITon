@@ -26,6 +26,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ImpactReportGenerator from "@/components/ImpactReportGenerator";
 import CoalitionBuilder from "@/components/CoalitionBuilder";
+import SmartImpactScoring from "@/components/SmartImpactScoring";
+import DonationTransparency from "@/components/DonationTransparency";
 
 const NGOPortal = () => {
   const myProjects = [
@@ -155,10 +157,12 @@ const NGOPortal = () => {
         </Card>
 
         <Tabs defaultValue="projects" className="space-y-6">
-          <TabsList className="grid w-full max-w-4xl grid-cols-6">
-            <TabsTrigger value="projects">My Projects</TabsTrigger>
-            <TabsTrigger value="reports">Impact Reports</TabsTrigger>
-            <TabsTrigger value="feed">Impact Feed</TabsTrigger>
+          <TabsList className="grid w-full max-w-6xl grid-cols-8 text-xs">
+            <TabsTrigger value="projects">Projects</TabsTrigger>
+            <TabsTrigger value="reports">Reports</TabsTrigger>
+            <TabsTrigger value="scoring">Impact Score</TabsTrigger>
+            <TabsTrigger value="transparency">Transparency</TabsTrigger>
+            <TabsTrigger value="feed">Feed</TabsTrigger>
             <TabsTrigger value="donations">Donations</TabsTrigger>
             <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
             <TabsTrigger value="collaborate">Collaborate</TabsTrigger>
@@ -315,6 +319,16 @@ const NGOPortal = () => {
           {/* Impact Reports Tab */}
           <TabsContent value="reports">
             <ImpactReportGenerator />
+          </TabsContent>
+
+          {/* Impact Scoring Tab */}
+          <TabsContent value="scoring">
+            <SmartImpactScoring />
+          </TabsContent>
+
+          {/* Transparency Tab */}
+          <TabsContent value="transparency">
+            <DonationTransparency />
           </TabsContent>
 
           {/* Impact Feed Tab */}

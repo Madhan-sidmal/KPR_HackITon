@@ -5,6 +5,7 @@ import InteractiveMap from "@/components/InteractiveMap";
 import UnifiedStatsCounter from "@/components/UnifiedStatsCounter";
 import GetInvolvedHub from "@/components/GetInvolvedHub";
 import AIAssistant from "@/components/AIAssistant";
+import AirQualitySnapshot from "@/components/AirQualitySnapshot";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building2, Users, Brain, UserCircle, ArrowRight, Droplet, Wind, Globe, Target, TrendingUp, Zap, Shield, Network, BarChart3, Sparkles } from "lucide-react";
@@ -259,6 +260,35 @@ const Index = () => {
             </div>
 
             <UnifiedStatsCounter />
+
+            <div className="mt-12 grid md:grid-cols-2 gap-6">
+              <AirQualitySnapshot />
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Droplet className="w-5 h-5 text-blue-600" />
+                    Water Quality Overview
+                  </CardTitle>
+                  <CardDescription>Active restoration projects nationwide</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Lakes Restored</span>
+                      <span className="text-2xl font-bold text-primary">1,240</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Rivers Cleaned</span>
+                      <span className="text-2xl font-bold text-secondary">85</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">NGOs Active</span>
+                      <span className="text-2xl font-bold text-accent">285</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
             <div className="mt-12 text-center">
               <Button 
