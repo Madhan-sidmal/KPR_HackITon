@@ -431,9 +431,6 @@ const NGOPortal = () => {
           {/* Collaborate Tab */}
           <TabsContent value="collaborate">
             <CoalitionBuilder />
-                <Button variant="outline">Browse Researchers</Button>
-              </CardContent>
-            </Card>
           </TabsContent>
         </Tabs>
       </main>
