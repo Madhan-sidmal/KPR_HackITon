@@ -19,7 +19,8 @@ import {
   Brain,
   MessageSquare,
   Menu,
-  X
+  X,
+  DollarSign
 } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Navbar from "@/components/Navbar";
