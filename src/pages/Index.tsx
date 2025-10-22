@@ -8,11 +8,14 @@ import AIAssistant from "@/components/AIAssistant";
 import AirQualitySnapshot from "@/components/AirQualitySnapshot";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Building2, Users, Brain, UserCircle, ArrowRight, Droplet, Wind, Globe, Target, TrendingUp, Zap, Shield, Network, BarChart3, Sparkles } from "lucide-react";
+import { Building2, Users, Brain, UserCircle, ArrowRight, Droplet, Wind, Globe, Target, TrendingUp, Zap, Shield, Network, BarChart3, Sparkles, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import type { EnvironmentView } from "@/components/EnvironmentToggle";
 
 const Index = () => {
   const navigate = useNavigate();
+  const [selectedEnvironment, setSelectedEnvironment] = useState<EnvironmentView | null>(null);
 
   const portals = [
     {
@@ -49,19 +52,118 @@ const Index = () => {
     },
   ];
 
+  const environmentOptions = [
+    {
+      value: "water" as EnvironmentView,
+      title: "Water Management",
+      description: "Monitor water bodies, track restoration projects, and manage water quality nationwide",
+      icon: Droplet,
+      color: "from-blue-500 to-cyan-500",
+      bgColor: "bg-blue-500/10",
+      iconColor: "text-blue-600"
+    },
+    {
+      value: "air" as EnvironmentView,
+      title: "Air Quality",
+      description: "Track AQI, PM2.5, pollution sources, and air quality improvements across India",
+      icon: Wind,
+      color: "from-indigo-500 to-purple-500",
+      bgColor: "bg-purple-500/10",
+      iconColor: "text-purple-600"
+    },
+    {
+      value: "combined" as EnvironmentView,
+      title: "Waste Management",
+      description: "Monitor solid waste, recycling initiatives, and circular economy projects",
+      icon: Trash2,
+      color: "from-emerald-500 to-teal-500",
+      bgColor: "bg-emerald-500/10",
+      iconColor: "text-emerald-600"
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <Navbar />
       <main>
         <Hero />
         
+        {/* Environment Selection Section */}
+        <section id="environment-selector" className="py-20 bg-gradient-to-b from-background to-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold mb-4">Choose Your Environmental Focus</h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Select the environmental domain you're most interested in to see relevant portals and features
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {environmentOptions.map((option) => {
+                const Icon = option.icon;
+                const isSelected = selectedEnvironment === option.value;
+                return (
+                  <Card 
+                    key={option.value}
+                    className={`cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-2 ${
+                      isSelected ? 'ring-2 ring-primary shadow-xl scale-105' : ''
+                    }`}
+                    onClick={() => {
+                      setSelectedEnvironment(option.value);
+                      setTimeout(() => {
+                        document.getElementById('portals')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }, 300);
+                    }}
+                  >
+                    <CardHeader>
+                      <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${option.color} flex items-center justify-center mb-4 mx-auto transition-transform ${
+                        isSelected ? 'scale-110' : 'group-hover:scale-105'
+                      }`}>
+                        <Icon className="w-10 h-10 text-white" />
+                      </div>
+                      <CardTitle className="text-2xl text-center">{option.title}</CardTitle>
+                      <CardDescription className="text-center pt-2">
+                        {option.description}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                      <Button 
+                        className={`w-full ${
+                          isSelected 
+                            ? `bg-gradient-to-r ${option.color} text-white` 
+                            : 'bg-muted'
+                        }`}
+                        variant={isSelected ? "default" : "outline"}
+                      >
+                        {isSelected ? 'Selected' : 'Select'}
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+
+            {selectedEnvironment && (
+              <div className="text-center mt-8 animate-fade-in">
+                <p className="text-muted-foreground mb-4">Great choice! Now select your role below ↓</p>
+              </div>
+            )}
+          </div>
+        </section>
+        
         {/* Portal Selection Section */}
-        <section id="portals" className="py-20 bg-muted/30">
+        <section id="portals" className={`py-20 bg-muted/30 transition-all duration-500 ${
+          selectedEnvironment ? 'opacity-100' : 'opacity-40 pointer-events-none'
+        }`}>
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold mb-4">Choose Your Portal</h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Access the right tools and features for your role in water restoration
+                {selectedEnvironment === "water" && "Access water restoration tools and features for your role"}
+                {selectedEnvironment === "air" && "Access air quality monitoring tools and features for your role"}
+                {selectedEnvironment === "combined" && "Access waste management tools and features for your role"}
+                {!selectedEnvironment && "Select an environmental focus above to continue"}
               </p>
             </div>
 
