@@ -1,29 +1,30 @@
-import { Droplet, Wind, Globe } from "lucide-react";
+import { Droplet, Wind, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export type EnvironmentView = "water" | "air" | "combined";
+export type EnvironmentView = "water" | "air" | "waste";
 
 interface EnvironmentToggleProps {
   view: EnvironmentView;
   onViewChange: (view: EnvironmentView) => void;
   className?: string;
+  showLabel?: boolean;
 }
 
-const EnvironmentToggle = ({ view, onViewChange, className = "" }: EnvironmentToggleProps) => {
+const EnvironmentToggle = ({ view, onViewChange, className = "", showLabel = true }: EnvironmentToggleProps) => {
   return (
-    <div className={`flex items-center gap-2 p-1 bg-muted rounded-lg ${className}`}>
+    <div className={`flex items-center gap-2 p-1 bg-card/80 backdrop-blur-sm rounded-lg border shadow-sm ${className}`}>
       <Button
         variant={view === "water" ? "default" : "ghost"}
         size="sm"
         onClick={() => onViewChange("water")}
         className={`gap-2 transition-all ${
           view === "water" 
-            ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white" 
-            : "hover:bg-blue-50"
+            ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600" 
+            : "hover:bg-blue-50 dark:hover:bg-blue-950"
         }`}
       >
         <Droplet className="w-4 h-4" />
-        <span className="hidden sm:inline">Water</span>
+        {showLabel && <span className="hidden sm:inline">Water</span>}
       </Button>
       
       <Button
@@ -32,26 +33,26 @@ const EnvironmentToggle = ({ view, onViewChange, className = "" }: EnvironmentTo
         onClick={() => onViewChange("air")}
         className={`gap-2 transition-all ${
           view === "air" 
-            ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white" 
-            : "hover:bg-purple-50"
+            ? "bg-gradient-to-r from-yellow-500 to-orange-500 text-white hover:from-yellow-600 hover:to-orange-600" 
+            : "hover:bg-yellow-50 dark:hover:bg-yellow-950"
         }`}
       >
         <Wind className="w-4 h-4" />
-        <span className="hidden sm:inline">Air</span>
+        {showLabel && <span className="hidden sm:inline">Air</span>}
       </Button>
       
       <Button
-        variant={view === "combined" ? "default" : "ghost"}
+        variant={view === "waste" ? "default" : "ghost"}
         size="sm"
-        onClick={() => onViewChange("combined")}
+        onClick={() => onViewChange("waste")}
         className={`gap-2 transition-all ${
-          view === "combined" 
-            ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white" 
-            : "hover:bg-emerald-50"
+          view === "waste" 
+            ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600" 
+            : "hover:bg-green-50 dark:hover:bg-green-950"
         }`}
       >
-        <Globe className="w-4 h-4" />
-        <span className="hidden sm:inline">Combined</span>
+        <Trash2 className="w-4 h-4" />
+        {showLabel && <span className="hidden sm:inline">Waste</span>}
       </Button>
     </div>
   );

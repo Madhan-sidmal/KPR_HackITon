@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { MapPin, Search, Filter, Layers, Droplet, Wind } from "lucide-react";
+import { MapPin, Search, Filter, Layers, Droplet, Wind, Trash2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import EnvironmentToggle, { EnvironmentView } from "@/components/EnvironmentToggle";
 import { useState } from "react";
 
 const MapPage = () => {
-  const [view, setView] = useState<EnvironmentView>("combined");
+  const [view, setView] = useState<EnvironmentView>("water");
   const [waterLayers, setWaterLayers] = useState({
     quality: true,
     pollution: true,
@@ -24,6 +24,12 @@ const MapPage = () => {
     pm10: true,
     emissions: true,
     fires: true,
+  });
+  const [wasteLayers, setWasteLayers] = useState({
+    dumps: true,
+    recycling: true,
+    collection: true,
+    landfills: true,
   });
 
   return (
@@ -56,7 +62,7 @@ const MapPage = () => {
               </div>
 
               {/* Water Layers */}
-              {(view === "water" || view === "combined") && (
+              {view === "water" && (
                 <div className="space-y-3 pb-4 border-b">
                   <div className="flex items-center gap-2 text-sm font-semibold">
                     <Droplet className="w-4 h-4 text-blue-600" />
@@ -91,7 +97,7 @@ const MapPage = () => {
               )}
 
               {/* Air Layers */}
-              {(view === "air" || view === "combined") && (
+              {view === "air" && (
                 <div className="space-y-3 pb-4 border-b">
                   <div className="flex items-center gap-2 text-sm font-semibold">
                     <Wind className="w-4 h-4 text-purple-600" />
@@ -125,20 +131,36 @@ const MapPage = () => {
                 </div>
               )}
 
-              {/* Synergy Features */}
-              {view === "combined" && (
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2 text-sm font-semibold text-emerald-600">
-                    <Badge className="bg-emerald-500">NEW</Badge>
-                    Correlation Mode
+              {/* Waste Layers */}
+              {view === "waste" && (
+                <div className="space-y-3 pb-4 border-b">
+                  <div className="flex items-center gap-2 text-sm font-semibold">
+                    <Badge className="bg-green-500">Waste</Badge>
+                    Waste Management Layers
                   </div>
-                  <div className="pl-6 space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Checkbox id="correlation" defaultChecked />
-                      <label htmlFor="correlation" className="text-sm cursor-pointer">
-                        Show Pollution Overlap Zones
-                      </label>
-                    </div>
+                  <div className="space-y-2 pl-6">
+                    {[
+                      { key: "dumps", label: "Illegal Dumping Sites" },
+                      { key: "recycling", label: "Recycling Centers" },
+                      { key: "collection", label: "Collection Points" },
+                      { key: "landfills", label: "Landfills" },
+                    ].map((layer) => (
+                      <div key={layer.key} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`waste-${layer.key}`}
+                          checked={wasteLayers[layer.key as keyof typeof wasteLayers]}
+                          onCheckedChange={(checked) =>
+                            setWasteLayers({ ...wasteLayers, [layer.key]: checked })
+                          }
+                        />
+                        <label
+                          htmlFor={`waste-${layer.key}`}
+                          className="text-sm cursor-pointer"
+                        >
+                          {layer.label}
+                        </label>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -151,22 +173,17 @@ const MapPage = () => {
               <div className="text-center space-y-4 z-10">
                 <div className="flex items-center justify-center gap-4 mb-4">
                   {view === "water" && <Droplet className="w-16 h-16 text-blue-500 opacity-50" />}
-                  {view === "air" && <Wind className="w-16 h-16 text-purple-500 opacity-50" />}
-                  {view === "combined" && (
-                    <>
-                      <Droplet className="w-12 h-12 text-blue-500 opacity-50" />
-                      <Wind className="w-12 h-12 text-purple-500 opacity-50" />
-                    </>
-                  )}
+                  {view === "air" && <Wind className="w-16 h-16 text-yellow-500 opacity-50" />}
+                  {view === "waste" && <Trash2 className="w-16 h-16 text-green-500 opacity-50" />}
                 </div>
                 <p className="text-xl font-semibold">
                   {view === "water" && "Water Quality Map"}
                   {view === "air" && "Air Quality Map"}
-                  {view === "combined" && "Unified Environmental Map"}
+                  {view === "waste" && "Waste Management Map"}
                 </p>
                 <p className="text-muted-foreground">Interactive map visualization</p>
                 <p className="text-sm text-muted-foreground max-w-md">
-                  Real-time {view === "combined" ? "environmental" : view} data from sensors across India
+                  Real-time {view} data from sensors across India
                 </p>
                 <Badge variant="secondary" className="mt-4">
                   Mapbox Integration Ready

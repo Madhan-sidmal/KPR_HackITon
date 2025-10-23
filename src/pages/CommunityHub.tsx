@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 
 const CommunityHub = () => {
-  const [view, setView] = useState<EnvironmentView>("combined");
+  const [view, setView] = useState<EnvironmentView>("water");
 
   const challenges = [
     {
@@ -50,20 +50,18 @@ const CommunityHub = () => {
     },
     {
       id: 3,
-      title: "Eco-Warrior Challenge",
-      category: "combined",
+      title: "Waste Cleanup Marathon",
+      category: "waste",
       location: "Nationwide",
       participants: 5680,
       deadline: "30 days left",
       points: 1000,
       difficulty: "Hard",
-      description: "Complete water and air quality improvement tasks"
+      description: "Participate in waste segregation and recycling drives"
     }
   ];
 
-  const filteredChallenges = view === "combined" 
-    ? challenges 
-    : challenges.filter(c => c.category === view || c.category === "combined");
+  const filteredChallenges = challenges.filter(c => c.category === view);
 
   return (
     <div className="min-h-screen bg-background">
@@ -138,8 +136,8 @@ const CommunityHub = () => {
                     <div className="flex items-start justify-between mb-2">
                       <Badge className={
                         challenge.category === 'water' ? 'bg-blue-500' :
-                        challenge.category === 'air' ? 'bg-purple-500' :
-                        'bg-emerald-500'
+                        challenge.category === 'air' ? 'bg-yellow-500' :
+                        'bg-green-500'
                       }>
                         {challenge.category.toUpperCase()}
                       </Badge>

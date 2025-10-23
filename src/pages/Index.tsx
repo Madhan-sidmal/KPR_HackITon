@@ -1,11 +1,12 @@
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
+import StorytellingHero from "@/components/StorytellingHero";
 import Footer from "@/components/Footer";
 import InteractiveMap from "@/components/InteractiveMap";
 import UnifiedStatsCounter from "@/components/UnifiedStatsCounter";
 import GetInvolvedHub from "@/components/GetInvolvedHub";
 import AIAssistant from "@/components/AIAssistant";
 import AirQualitySnapshot from "@/components/AirQualitySnapshot";
+import WasteQualitySnapshot from "@/components/WasteQualitySnapshot";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building2, Users, Brain, UserCircle, ArrowRight, Droplet, Wind, Globe, Target, TrendingUp, Zap, Shield, Network, BarChart3, Sparkles, Trash2 } from "lucide-react";
@@ -72,7 +73,7 @@ const Index = () => {
       iconColor: "text-purple-600"
     },
     {
-      value: "combined" as EnvironmentView,
+      value: "waste" as EnvironmentView,
       title: "Waste Management",
       description: "Monitor solid waste, recycling initiatives, and circular economy projects",
       icon: Trash2,
@@ -86,7 +87,7 @@ const Index = () => {
     <div className="min-h-screen">
       <Navbar />
       <main>
-        <Hero />
+        <StorytellingHero />
         
         {/* Environment Selection Section */}
         <section id="environment-selector" className="py-20 bg-gradient-to-b from-background to-muted/30">
@@ -162,7 +163,7 @@ const Index = () => {
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 {selectedEnvironment === "water" && "Access water restoration tools and features for your role"}
                 {selectedEnvironment === "air" && "Access air quality monitoring tools and features for your role"}
-                {selectedEnvironment === "combined" && "Access waste management tools and features for your role"}
+                {selectedEnvironment === "waste" && "Access waste management tools and features for your role"}
                 {!selectedEnvironment && "Select an environmental focus above to continue"}
               </p>
             </div>
@@ -311,15 +312,15 @@ const Index = () => {
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">How ParyavaranSahyog Works</h2>
+              <h2 className="text-4xl font-bold mb-4">How JeevaDhara Works</h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                A unified platform for environmental monitoring, restoration, and action
+                A unified platform for environmental monitoring, restoration, and action across three critical domains
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               <div className="text-center space-y-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-                <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer">
+                <div className="w-20 h-20 rounded-full bg-blue-100 dark:bg-blue-950 flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer">
                   <Droplet className="w-10 h-10 text-blue-600" />
                 </div>
                 <h3 className="text-xl font-semibold">Water Monitoring</h3>
@@ -329,8 +330,8 @@ const Index = () => {
               </div>
 
               <div className="text-center space-y-4 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                <div className="w-20 h-20 rounded-full bg-purple-100 flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer">
-                  <Wind className="w-10 h-10 text-purple-600" />
+                <div className="w-20 h-20 rounded-full bg-yellow-100 dark:bg-yellow-950 flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer">
+                  <Wind className="w-10 h-10 text-yellow-600" />
                 </div>
                 <h3 className="text-xl font-semibold">Air Quality Tracking</h3>
                 <p className="text-muted-foreground">
@@ -339,12 +340,12 @@ const Index = () => {
               </div>
 
               <div className="text-center space-y-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-                <div className="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer">
-                  <Globe className="w-10 h-10 text-emerald-600" />
+                <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-950 flex items-center justify-center mx-auto hover:scale-110 transition-transform cursor-pointer">
+                  <Trash2 className="w-10 h-10 text-green-600" />
                 </div>
-                <h3 className="text-xl font-semibold">Unified Insights</h3>
+                <h3 className="text-xl font-semibold">Waste Management</h3>
                 <p className="text-muted-foreground">
-                  Discover correlations between air and water quality with AI-powered analysis
+                  Track recycling rates, cleanup drives, and circular economy initiatives
                 </p>
               </div>
             </div>
@@ -363,9 +364,10 @@ const Index = () => {
 
             <UnifiedStatsCounter />
 
-            <div className="mt-12 grid md:grid-cols-2 gap-6">
+            <div className="mt-12 grid md:grid-cols-3 gap-6">
               <AirQualitySnapshot />
-              <Card>
+              
+              <Card className="glass-card">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Droplet className="w-5 h-5 text-blue-600" />
@@ -390,6 +392,36 @@ const Index = () => {
                   </div>
                 </CardContent>
               </Card>
+
+              <Card className="glass-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Trash2 className="w-5 h-5 text-green-600" />
+                    Waste Management Status
+                  </CardTitle>
+                  <CardDescription>Nationwide recycling and cleanup metrics</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Recycling Rate</span>
+                      <span className="text-2xl font-bold text-green-600">43.6%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Collection Coverage</span>
+                      <span className="text-2xl font-bold text-primary">82%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Cleanup Drives</span>
+                      <span className="text-2xl font-bold text-secondary">342</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="mt-8">
+              <WasteQualitySnapshot />
             </div>
 
             <div className="mt-12 text-center">
