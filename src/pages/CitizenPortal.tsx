@@ -28,7 +28,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChallengeCard from "@/components/ChallengeCard";
 import BadgeShowcase from "@/components/BadgeShowcase";
-import InteractiveMap from "@/components/InteractiveMap";
+import AirQualityMap from "@/components/AirQualityMap";
 import ImpactTiers from "@/components/ImpactTiers";
 
 const CitizenPortal = () => {
@@ -313,8 +313,8 @@ const CitizenPortal = () => {
                 </CardTitle>
                 <CardDescription>Interactive map of water bodies near you with real-time status</CardDescription>
               </CardHeader>
-              <CardContent>
-                <InteractiveMap />
+              <CardContent className="h-[600px]">
+                <AirQualityMap />
               </CardContent>
             </Card>
           </TabsContent>
