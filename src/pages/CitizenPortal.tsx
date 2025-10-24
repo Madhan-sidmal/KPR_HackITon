@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -32,6 +33,8 @@ import AirQualityMap from "@/components/AirQualityMap";
 import ImpactTiers from "@/components/ImpactTiers";
 
 const CitizenPortal = () => {
+  const [activeTab, setActiveTab] = useState("home");
+  
   const userStats = {
     ecoPoints: 2450,
     rank: 124,
@@ -143,7 +146,10 @@ const CitizenPortal = () => {
                 <h2 className="text-2xl font-bold mb-1">Your Local Water Status</h2>
                 <p className="text-muted-foreground">Current condition: Good • 3 nearby lakes tracked</p>
               </div>
-              <Button className="bg-gradient-to-r from-primary to-secondary">
+              <Button 
+                className="bg-gradient-to-r from-primary to-secondary"
+                onClick={() => setActiveTab("map")}
+              >
                 <Map className="w-4 h-4 mr-2" />
                 View Map
               </Button>
@@ -189,7 +195,7 @@ const CitizenPortal = () => {
           </Card>
         </div>
 
-        <Tabs defaultValue="home" className="space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full max-w-4xl grid-cols-6">
             <TabsTrigger value="home">Home</TabsTrigger>
             <TabsTrigger value="map">Explore Map</TabsTrigger>
