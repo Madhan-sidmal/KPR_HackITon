@@ -315,7 +315,7 @@ const CitizenPortal = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Map className="w-5 h-5 text-primary" />
-                  Explore Local Waterbodies
+                  Explore Local situations
                 </CardTitle>
                 <CardDescription>Interactive map of water bodies near you with real-time status</CardDescription>
               </CardHeader>
