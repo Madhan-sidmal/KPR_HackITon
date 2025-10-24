@@ -21,6 +21,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Map", href: "/map", icon: null },
+    { name: "Air Quality", href: "/air-quality-map", icon: null },
     { name: "Community", href: "/community", icon: null },
     { name: "Knowledge", href: "/knowledge", icon: null },
   ];

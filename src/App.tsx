@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { EnvironmentProvider } from "@/contexts/EnvironmentContext";
 import Index from "./pages/Index";
 import InterestSelection from "./pages/InterestSelection";
+import AirQualityMapPage from "./pages/AirQualityMapPage";
 import GovernmentPortal from "./pages/GovernmentPortal";
 import NGOPortal from "./pages/NGOPortal";
 import ResearchPortal from "./pages/ResearchPortal";
@@ -31,6 +32,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/interest" element={<InterestSelection />} />
+            <Route path="/air-quality-map" element={<AirQualityMapPage />} />
             <Route path="/government" element={<GovernmentPortal />} />
             <Route path="/ngo" element={<NGOPortal />} />
             <Route path="/research" element={<ResearchPortal />} />
