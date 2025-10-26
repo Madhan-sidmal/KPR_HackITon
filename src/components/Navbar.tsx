@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Droplet, Menu, X, Building2, Users, Brain, UserCircle, ShoppingBag, LogOut } from "lucide-react";
+import { Droplet, Menu, X, Building2, Users, Brain, UserCircle as UserCircleIcon, ShoppingBag, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthModal from "./AuthModal";
@@ -52,7 +52,7 @@ const Navbar = () => {
     { name: "Government Portal", href: "/government", icon: Building2 },
     { name: "NGO Portal", href: "/ngo", icon: Users },
     { name: "Research Portal", href: "/research", icon: Brain },
-    { name: "Citizen Portal", href: "/citizen", icon: UserCircle },
+    { name: "Citizen Portal", href: "/citizen", icon: UserCircleIcon },
   ];
 
   return (
@@ -107,15 +107,26 @@ const Navbar = () => {
               Marketplace
             </Button>
             {user ? (
-              <Button 
-                onClick={handleLogout}
-                size="sm"
-                variant="outline"
-                className="text-sm font-medium"
-              >
-                <LogOut className="w-4 h-4 mr-1" />
-                Logout
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button 
+                  onClick={() => navigate("/account")}
+                  size="sm"
+                  variant="ghost"
+                  className="text-sm font-medium hover:text-primary"
+                >
+                  <UserCircleIcon className="w-4 h-4 mr-1" />
+                  Account
+                </Button>
+                <Button 
+                  onClick={handleLogout}
+                  size="sm"
+                  variant="outline"
+                  className="text-sm font-medium"
+                >
+                  <LogOut className="w-4 h-4 mr-1" />
+                  Logout
+                </Button>
+              </div>
             ) : (
               <Button 
                 onClick={() => setAuthModalOpen(true)}

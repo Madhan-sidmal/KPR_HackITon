@@ -19,6 +19,7 @@ import NotFound from "./pages/NotFound";
 import CorrelationEnginePage from "./pages/CorrelationEnginePage";
 import EcoHealthScorePage from "./pages/EcoHealthScorePage";
 import PolicySimulatorPage from "./pages/PolicySimulatorPage";
+import AccountPage from "./pages/AccountPage";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/correlation-engine" element={<CorrelationEnginePage />} />
             <Route path="/eco-health-score" element={<EcoHealthScorePage />} />
             <Route path="/policy-simulator" element={<PolicySimulatorPage />} />
+            <Route path="/account" element={<AccountPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
