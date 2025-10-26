@@ -1,14 +1,17 @@
 import { Button } from "@/components/ui/button";
-import { Droplet, Menu, X, Building2, Users, Brain, UserCircle, ShoppingBag } from "lucide-react";
+import { Droplet, Menu, X, Building2, Users, Brain, UserCircle, ShoppingBag, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthModal from "./AuthModal";
 import logo from "@/assets/logo-paryavaran-sahyog.png";
+import { supabase } from "@/integrations/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,6 +21,25 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Check current session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
 
   const navLinks = [
     { name: "Map", href: "/map", icon: null },
@@ -84,13 +106,25 @@ const Navbar = () => {
               <ShoppingBag className="w-4 h-4 mr-1" />
               Marketplace
             </Button>
-            <Button 
-              onClick={() => setAuthModalOpen(true)}
-              size="sm"
-              className="bg-gradient-to-r from-primary to-secondary hover:shadow-water"
-            >
-              Login
-            </Button>
+            {user ? (
+              <Button 
+                onClick={handleLogout}
+                size="sm"
+                variant="outline"
+                className="text-sm font-medium"
+              >
+                <LogOut className="w-4 h-4 mr-1" />
+                Logout
+              </Button>
+            ) : (
+              <Button 
+                onClick={() => setAuthModalOpen(true)}
+                size="sm"
+                className="bg-gradient-to-r from-primary to-secondary hover:shadow-water"
+              >
+                Login
+              </Button>
+            )}
           </div>
           
           <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />
