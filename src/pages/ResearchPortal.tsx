@@ -14,46 +14,127 @@ import {
   Award,
   Search,
   Filter,
-  ExternalLink
+  ExternalLink,
+  Droplet,
+  Wind,
+  Trash2
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PredictiveSandbox from "@/components/PredictiveSandbox";
 import GrantFinder from "@/components/GrantFinder";
 import PeerReviewSystem from "@/components/PeerReviewSystem";
+import { useEnvironment } from "@/contexts/EnvironmentContext";
 
 const ResearchPortal = () => {
-  const datasets = [
-    { name: "Bhuvan LULC 2024", source: "ISRO", size: "2.4 GB", downloads: 1240, updated: "Jan 2025" },
-    { name: "CGWB Groundwater Data", source: "CGWB", size: "850 MB", downloads: 980, updated: "Dec 2024" },
-    { name: "CPCB Water Quality", source: "CPCB", size: "420 MB", downloads: 760, updated: "Nov 2024" },
-    { name: "Rainfall Patterns 2024", source: "IMD", size: "1.1 GB", downloads: 650, updated: "Dec 2024" },
-  ];
+  const { environment } = useEnvironment();
 
-  const myPublications = [
-    {
-      title: "AI-Driven Groundwater Prediction Model",
-      journal: "Nature Water",
-      date: "Jan 2025",
-      citations: 24,
-      impact: "Used by 14 NGOs, 2 states",
-      status: "published",
+  const environmentConfig = {
+    water: {
+      datasets: [
+        { name: "Bhuvan LULC 2024", source: "ISRO", size: "2.4 GB", downloads: 1240, updated: "Jan 2025" },
+        { name: "CGWB Groundwater Data", source: "CGWB", size: "850 MB", downloads: 980, updated: "Dec 2024" },
+        { name: "CPCB Water Quality", source: "CPCB", size: "420 MB", downloads: 760, updated: "Nov 2024" },
+        { name: "Rainfall Patterns 2024", source: "IMD", size: "1.1 GB", downloads: 650, updated: "Dec 2024" },
+      ],
+      publications: [
+        {
+          title: "AI-Driven Groundwater Prediction Model",
+          journal: "Nature Water",
+          date: "Jan 2025",
+          citations: 24,
+          impact: "Used by 14 NGOs, 2 states",
+          status: "published",
+        },
+        {
+          title: "LULC Change Analysis Framework",
+          journal: "Water Resources Research",
+          date: "Dec 2024",
+          citations: 18,
+          impact: "Under government review",
+          status: "published",
+        },
+      ],
+      models: [
+        { name: "Groundwater Depletion Predictor", accuracy: 89, downloads: 340 },
+        { name: "Water Quality Classifier", accuracy: 92, downloads: 280 },
+        { name: "Restoration Impact Estimator", accuracy: 85, downloads: 210 },
+      ],
+      title: "water restoration",
+      icon: Droplet
     },
-    {
-      title: "LULC Change Analysis Framework",
-      journal: "Water Resources Research",
-      date: "Dec 2024",
-      citations: 18,
-      impact: "Under government review",
-      status: "published",
+    air: {
+      datasets: [
+        { name: "CPCB AQI Data 2024", source: "CPCB", size: "1.8 GB", downloads: 1540, updated: "Jan 2025" },
+        { name: "Emission Inventory", source: "MoEFCC", size: "640 MB", downloads: 1120, updated: "Dec 2024" },
+        { name: "Satellite PM2.5 Data", source: "NASA", size: "2.2 GB", downloads: 890, updated: "Nov 2024" },
+        { name: "Traffic Patterns 2024", source: "NITI Aayog", size: "920 MB", downloads: 710, updated: "Dec 2024" },
+      ],
+      publications: [
+        {
+          title: "Urban Air Quality Forecasting with ML",
+          journal: "Atmospheric Environment",
+          date: "Jan 2025",
+          citations: 32,
+          impact: "Used by 8 cities",
+          status: "published",
+        },
+        {
+          title: "Source Apportionment Framework",
+          journal: "Environmental Science & Technology",
+          date: "Dec 2024",
+          citations: 28,
+          impact: "Policy under review",
+          status: "published",
+        },
+      ],
+      models: [
+        { name: "AQI Prediction Model", accuracy: 91, downloads: 420 },
+        { name: "Pollution Source Classifier", accuracy: 88, downloads: 350 },
+        { name: "Health Impact Estimator", accuracy: 86, downloads: 290 },
+      ],
+      title: "air quality management",
+      icon: Wind
     },
-  ];
+    waste: {
+      datasets: [
+        { name: "Municipal Waste Stats 2024", source: "CPCB", size: "1.2 GB", downloads: 980, updated: "Jan 2025" },
+        { name: "Landfill Capacity Data", source: "MoEFCC", size: "420 MB", downloads: 760, updated: "Dec 2024" },
+        { name: "Recycling Rates 2024", source: "CSE", size: "580 MB", downloads: 650, updated: "Nov 2024" },
+        { name: "Waste Collection Routes", source: "Smart Cities", size: "340 MB", downloads: 540, updated: "Dec 2024" },
+      ],
+      publications: [
+        {
+          title: "Zero Waste City Model Framework",
+          journal: "Waste Management",
+          date: "Jan 2025",
+          citations: 19,
+          impact: "Used by 6 cities",
+          status: "published",
+        },
+        {
+          title: "Circular Economy in Urban India",
+          journal: "Resources Conservation & Recycling",
+          date: "Dec 2024",
+          citations: 15,
+          impact: "Policy under review",
+          status: "published",
+        },
+      ],
+      models: [
+        { name: "Waste Generation Predictor", accuracy: 87, downloads: 310 },
+        { name: "Segregation Compliance Classifier", accuracy: 90, downloads: 270 },
+        { name: "Recycling Potential Estimator", accuracy: 84, downloads: 230 },
+      ],
+      title: "waste management",
+      icon: Trash2
+    }
+  };
 
-  const models = [
-    { name: "Groundwater Depletion Predictor", accuracy: 89, downloads: 340 },
-    { name: "Water Quality Classifier", accuracy: 92, downloads: 280 },
-    { name: "Restoration Impact Estimator", accuracy: 85, downloads: 210 },
-  ];
+  const config = environmentConfig[environment];
+  const datasets = config.datasets;
+  const myPublications = config.publications;
+  const models = config.models;
 
   return (
     <div className="min-h-screen bg-background">
@@ -66,7 +147,7 @@ const ResearchPortal = () => {
             <Brain className="w-8 h-8 text-secondary" />
             <h1 className="text-4xl font-bold">Research Portal</h1>
           </div>
-          <p className="text-muted-foreground">Data, models, and insights for water restoration</p>
+          <p className="text-muted-foreground">Data, models, and insights for {config.title}</p>
         </div>
 
         {/* Quick Stats */}

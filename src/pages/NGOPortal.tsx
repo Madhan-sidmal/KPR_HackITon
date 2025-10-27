@@ -19,7 +19,10 @@ import {
   Share2,
   Upload,
   Video,
-  MapPinned
+  MapPinned,
+  Droplet,
+  Wind,
+  Trash2
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Navbar from "@/components/Navbar";
@@ -28,30 +31,94 @@ import ImpactReportGenerator from "@/components/ImpactReportGenerator";
 import CoalitionBuilder from "@/components/CoalitionBuilder";
 import SmartImpactScoring from "@/components/SmartImpactScoring";
 import DonationTransparency from "@/components/DonationTransparency";
+import { useEnvironment } from "@/contexts/EnvironmentContext";
 
 const NGOPortal = () => {
-  const myProjects = [
-    {
-      id: 1,
-      name: "Bellandur Lake Restoration",
-      location: "Bangalore, Karnataka",
-      status: "In Progress",
-      progress: 78,
-      volunteers: 450,
-      funding: { raised: 4200000, goal: 5000000 },
-      verified: true,
+  const { environment } = useEnvironment();
+
+  const environmentConfig = {
+    water: {
+      projects: [
+        {
+          id: 1,
+          name: "Bellandur Lake Restoration",
+          location: "Bangalore, Karnataka",
+          status: "In Progress",
+          progress: 78,
+          volunteers: 450,
+          funding: { raised: 4200000, goal: 5000000 },
+          verified: true,
+        },
+        {
+          id: 2,
+          name: "Community Pond Revival",
+          location: "Mysore, Karnataka",
+          status: "Planning",
+          progress: 25,
+          volunteers: 120,
+          funding: { raised: 800000, goal: 2000000 },
+          verified: false,
+        },
+      ],
+      stat1: { label: "Waterbodies Restored", value: 8 },
+      icon: Droplet
     },
-    {
-      id: 2,
-      name: "Community Pond Revival",
-      location: "Mysore, Karnataka",
-      status: "Planning",
-      progress: 25,
-      volunteers: 120,
-      funding: { raised: 800000, goal: 2000000 },
-      verified: false,
+    air: {
+      projects: [
+        {
+          id: 1,
+          name: "City Air Quality Monitoring",
+          location: "Delhi NCR",
+          status: "In Progress",
+          progress: 65,
+          volunteers: 320,
+          funding: { raised: 3500000, goal: 5000000 },
+          verified: true,
+        },
+        {
+          id: 2,
+          name: "Green Corridor Development",
+          location: "Mumbai, Maharashtra",
+          status: "Planning",
+          progress: 30,
+          volunteers: 180,
+          funding: { raised: 1200000, goal: 3000000 },
+          verified: false,
+        },
+      ],
+      stat1: { label: "Air Quality Stations", value: 12 },
+      icon: Wind
     },
-  ];
+    waste: {
+      projects: [
+        {
+          id: 1,
+          name: "Zero Waste Initiative",
+          location: "Indore, Madhya Pradesh",
+          status: "In Progress",
+          progress: 82,
+          volunteers: 560,
+          funding: { raised: 4800000, goal: 6000000 },
+          verified: true,
+        },
+        {
+          id: 2,
+          name: "Recycling Hub Setup",
+          location: "Pune, Maharashtra",
+          status: "Planning",
+          progress: 40,
+          volunteers: 240,
+          funding: { raised: 1800000, goal: 4000000 },
+          verified: false,
+        },
+      ],
+      stat1: { label: "Waste Centers Setup", value: 15 },
+      icon: Trash2
+    }
+  };
+
+  const config = environmentConfig[environment];
+  const myProjects = config.projects;
 
   const recentDonors = [
     { name: "Priya Sharma", amount: 5000, date: "2 hours ago" },
@@ -60,7 +127,7 @@ const NGOPortal = () => {
   ];
 
   const stats = {
-    totalRestored: 8,
+    totalRestored: config.stat1.value,
     totalVolunteers: 1240,
     fundsRaised: 12500000,
     rank: 12,
@@ -106,8 +173,11 @@ const NGOPortal = () => {
         <div className="grid md:grid-cols-4 gap-4 mb-8">
           <Card className="glass-card">
             <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-primary mb-1">{stats.totalRestored}</div>
-              <div className="text-sm text-muted-foreground">Waterbodies Restored</div>
+              <div className="flex items-center gap-2 mb-1">
+                <config.icon className="w-6 h-6 text-primary" />
+                <div className="text-3xl font-bold">{stats.totalRestored}</div>
+              </div>
+              <div className="text-sm text-muted-foreground">{config.stat1.label}</div>
             </CardContent>
           </Card>
 

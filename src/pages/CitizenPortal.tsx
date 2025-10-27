@@ -23,7 +23,10 @@ import {
   DollarSign,
   Map,
   Zap,
-  Flame
+  Flame,
+  Droplet,
+  Wind,
+  Trash2
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -31,9 +34,11 @@ import ChallengeCard from "@/components/ChallengeCard";
 import BadgeShowcase from "@/components/BadgeShowcase";
 import AirQualityMap from "@/components/AirQualityMap";
 import ImpactTiers from "@/components/ImpactTiers";
+import { useEnvironment } from "@/contexts/EnvironmentContext";
 
 const CitizenPortal = () => {
   const [activeTab, setActiveTab] = useState("home");
+  const { environment } = useEnvironment();
   
   const userStats = {
     ecoPoints: 2450,
@@ -42,59 +47,129 @@ const CitizenPortal = () => {
     nextMilestone: 3000,
   };
 
-  const challenges = [
-    { 
-      title: "Clean 1 Pond", 
-      description: "Join a cleanup drive and restore a local pond",
-      points: 100, 
-      progress: 75, 
-      deadline: "3 days left",
-      difficulty: "medium" as const,
-      icon: "💧"
+  const environmentConfig = {
+    water: {
+      title: "Water Quality Status",
+      locations: [
+        { name: "Ulsoor Lake", distance: "2.3 km", status: "Good", lastUpdated: "2 days ago" },
+        { name: "Sankey Tank", distance: "4.1 km", status: "Needs Attention", lastUpdated: "1 week ago" },
+        { name: "Hebbal Lake", distance: "5.8 km", status: "Excellent", lastUpdated: "1 day ago" },
+      ],
+      challenges: [
+        { 
+          title: "Clean 1 Pond", 
+          description: "Join a cleanup drive and restore a local pond",
+          points: 100, 
+          progress: 75, 
+          deadline: "3 days left",
+          difficulty: "medium" as const,
+          icon: "💧"
+        },
+        { 
+          title: "Report Water Pollution", 
+          description: "Help identify waterbodies that need attention",
+          points: 75, 
+          progress: 33, 
+          deadline: "5 days left",
+          difficulty: "easy" as const,
+          icon: "📸"
+        },
+        { 
+          title: "Save 1000L Water", 
+          description: "Implement water conservation at home",
+          points: 150, 
+          progress: 0, 
+          deadline: "2 weeks left",
+          difficulty: "medium" as const,
+          icon: "💧"
+        },
+      ],
+      icon: Droplet,
+      statusMessage: "3 nearby lakes tracked"
     },
-    { 
-      title: "Plant 5 Trees", 
-      description: "Participate in tree planting event",
-      points: 50, 
-      progress: 40, 
-      deadline: "1 week left",
-      difficulty: "easy" as const,
-      icon: "🌳"
+    air: {
+      title: "Air Quality Status",
+      locations: [
+        { name: "Koramangala", distance: "1.5 km", status: "Moderate", lastUpdated: "1 hour ago" },
+        { name: "Indiranagar", distance: "3.2 km", status: "Poor", lastUpdated: "30 mins ago" },
+        { name: "Whitefield", distance: "7.1 km", status: "Good", lastUpdated: "2 hours ago" },
+      ],
+      challenges: [
+        { 
+          title: "Use Public Transport", 
+          description: "Reduce emissions by using public transit 5 times",
+          points: 100, 
+          progress: 60, 
+          deadline: "1 week left",
+          difficulty: "medium" as const,
+          icon: "🚌"
+        },
+        { 
+          title: "Report Air Pollution", 
+          description: "Document industrial smoke or burning incidents",
+          points: 75, 
+          progress: 0, 
+          deadline: "5 days left",
+          difficulty: "easy" as const,
+          icon: "📸"
+        },
+        { 
+          title: "Plant 5 Trees", 
+          description: "Help improve air quality by planting trees",
+          points: 150, 
+          progress: 40, 
+          deadline: "2 weeks left",
+          difficulty: "medium" as const,
+          icon: "🌳"
+        },
+      ],
+      icon: Wind,
+      statusMessage: "3 monitoring stations nearby"
     },
-    { 
-      title: "Report 3 Issues", 
-      description: "Help identify waterbodies that need attention",
-      points: 75, 
-      progress: 33, 
-      deadline: "5 days left",
-      difficulty: "easy" as const,
-      icon: "📸"
-    },
-    { 
-      title: "Donate ₹500", 
-      description: "Support restoration projects financially",
-      points: 150, 
-      progress: 0, 
-      deadline: "2 weeks left",
-      difficulty: "medium" as const,
-      icon: "💝"
-    },
-    { 
-      title: "Recruit 10 Friends", 
-      description: "Grow the community by inviting friends",
-      points: 200, 
-      progress: 0, 
-      deadline: "1 month left",
-      difficulty: "hard" as const,
-      icon: "👥"
-    },
-  ];
+    waste: {
+      title: "Waste Management Status",
+      locations: [
+        { name: "HSR Layout", distance: "2.1 km", status: "Good", lastUpdated: "1 day ago" },
+        { name: "BTM Layout", distance: "4.5 km", status: "Needs Attention", lastUpdated: "3 days ago" },
+        { name: "Electronic City", distance: "8.2 km", status: "Excellent", lastUpdated: "1 day ago" },
+      ],
+      challenges: [
+        { 
+          title: "Segregate Waste", 
+          description: "Practice proper waste segregation for 7 days",
+          points: 100, 
+          progress: 70, 
+          deadline: "1 week left",
+          difficulty: "easy" as const,
+          icon: "♻️"
+        },
+        { 
+          title: "Report Illegal Dumping", 
+          description: "Help identify illegal waste disposal sites",
+          points: 75, 
+          progress: 0, 
+          deadline: "5 days left",
+          difficulty: "easy" as const,
+          icon: "📸"
+        },
+        { 
+          title: "Recycle 5kg Materials", 
+          description: "Participate in community recycling drive",
+          points: 150, 
+          progress: 30, 
+          deadline: "2 weeks left",
+          difficulty: "medium" as const,
+          icon: "🗑️"
+        },
+      ],
+      icon: Trash2,
+      statusMessage: "3 collection zones tracked"
+    }
+  };
 
-  const nearbyLocations = [
-    { name: "Ulsoor Lake", distance: "2.3 km", status: "Good", lastUpdated: "2 days ago" },
-    { name: "Sankey Tank", distance: "4.1 km", status: "Needs Attention", lastUpdated: "1 week ago" },
-    { name: "Hebbal Lake", distance: "5.8 km", status: "Excellent", lastUpdated: "1 day ago" },
-  ];
+  const config = environmentConfig[environment];
+  const challenges = config.challenges;
+  const nearbyLocations = config.locations;
 
   return (
     <div className="min-h-screen bg-background">
@@ -137,14 +212,17 @@ const CitizenPortal = () => {
           <p className="text-muted-foreground">Track your impact and join local initiatives</p>
         </div>
 
-        {/* Local Water Status Banner */}
+        {/* Local Status Banner */}
         <Card className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
                 <Badge className="mb-2">Auto-detected Location: Bangalore</Badge>
-                <h2 className="text-2xl font-bold mb-1">Your Local Water Status</h2>
-                <p className="text-muted-foreground">Current condition: Good • 3 nearby lakes tracked</p>
+                <h2 className="text-2xl font-bold mb-1 flex items-center gap-2">
+                  <config.icon className="w-6 h-6" />
+                  {config.title}
+                </h2>
+                <p className="text-muted-foreground">Current condition: Good • {config.statusMessage}</p>
               </div>
               <Button 
                 className="bg-gradient-to-r from-primary to-secondary"
@@ -210,10 +288,10 @@ const CitizenPortal = () => {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-primary" />
-                    Nearby Waterbodies
+                    <config.icon className="w-5 h-5 text-primary" />
+                    Nearby {environment === 'water' ? 'Waterbodies' : environment === 'air' ? 'Air Quality Zones' : 'Waste Collection Zones'}
                   </CardTitle>
-                  <CardDescription>Water status in your area</CardDescription>
+                  <CardDescription>{environment === 'water' ? 'Water status in your area' : environment === 'air' ? 'Air quality monitoring near you' : 'Waste management in your area'}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">

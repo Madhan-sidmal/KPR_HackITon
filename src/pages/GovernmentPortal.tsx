@@ -20,7 +20,10 @@ import {
   MessageSquare,
   Menu,
   X,
-  DollarSign
+  DollarSign,
+  Droplet,
+  Wind,
+  Trash2
 } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Navbar from "@/components/Navbar";
@@ -31,10 +34,12 @@ import AutomatedComplianceEngine from "@/components/AutomatedComplianceEngine";
 import MinisterialBriefing from "@/components/MinisterialBriefing";
 import SmartFundAllocation from "@/components/SmartFundAllocation";
 import RestorationEfficiencyTracker from "@/components/RestorationEfficiencyTracker";
+import { useEnvironment } from "@/contexts/EnvironmentContext";
 
 const GovernmentPortal = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeView, setActiveView] = useState("dashboard");
+  const { environment } = useEnvironment();
 
   const states = [
     { name: "Maharashtra", restored: 1240, progress: 78, index: 8.4 },
@@ -58,20 +63,71 @@ const GovernmentPortal = () => {
     { id: 3, type: "Impact Post", name: "Bellandur Lake Update", ngo: "Waterkeeper India", status: "pending" },
   ];
 
-  const aiInsights = [
-    { 
-      title: "Critical Depletion Alert", 
-      region: "Western Maharashtra", 
-      severity: "high",
-      recommendation: "Immediate desilting and rainwater harvesting infrastructure needed"
+  const environmentConfig = {
+    water: {
+      title: "Water Restoration",
+      metric: "Waterbodies",
+      count: "12,430",
+      insights: [
+        { 
+          title: "Critical Depletion Alert", 
+          region: "Western Maharashtra", 
+          severity: "high",
+          recommendation: "Immediate desilting and rainwater harvesting infrastructure needed"
+        },
+        { 
+          title: "Successful Model Identified", 
+          region: "Karnataka Stepwells", 
+          severity: "low",
+          recommendation: "Replicate traditional restoration methods in Rajasthan"
+        },
+      ],
+      icon: Droplet
     },
-    { 
-      title: "Successful Model Identified", 
-      region: "Karnataka Stepwells", 
-      severity: "low",
-      recommendation: "Replicate traditional restoration methods in Rajasthan"
+    air: {
+      title: "Air Quality Management",
+      metric: "Monitoring Stations",
+      count: "8,240",
+      insights: [
+        { 
+          title: "High Pollution Alert", 
+          region: "Delhi NCR", 
+          severity: "high",
+          recommendation: "Implement emergency measures: odd-even, construction ban"
+        },
+        { 
+          title: "Success Story", 
+          region: "Pune Smart City", 
+          severity: "low",
+          recommendation: "Scale EV adoption and green corridor model to other cities"
+        },
+      ],
+      icon: Wind
     },
-  ];
+    waste: {
+      title: "Waste Management",
+      metric: "Collection Centers",
+      count: "15,680",
+      insights: [
+        { 
+          title: "Landfill Capacity Critical", 
+          region: "Mumbai Metropolitan", 
+          severity: "high",
+          recommendation: "Urgent need for waste-to-energy plants and segregation enforcement"
+        },
+        { 
+          title: "Zero Waste Achievement", 
+          region: "Indore Model", 
+          severity: "low",
+          recommendation: "Replicate door-to-door segregation system nationwide"
+        },
+      ],
+      icon: Trash2
+    }
+  };
+
+  const config = environmentConfig[environment];
+  const aiInsights = config.insights;
 
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -134,7 +190,7 @@ const GovernmentPortal = () => {
                     <Building2 className="w-8 h-8 text-secondary" />
                     <h1 className="text-4xl font-bold">Government Portal</h1>
                   </div>
-                  <p className="text-muted-foreground">National Water Restoration Dashboard</p>
+                  <p className="text-muted-foreground">National {config.title} Dashboard</p>
                 </div>
               </div>
             </div>
@@ -143,8 +199,11 @@ const GovernmentPortal = () => {
             <div className="grid md:grid-cols-4 gap-4 mb-8">
           <Card className="glass-card">
             <CardHeader className="pb-3">
-              <CardDescription>Total Waterbodies</CardDescription>
-              <CardTitle className="text-3xl text-primary">12,430</CardTitle>
+              <CardDescription className="flex items-center gap-2">
+                <config.icon className="w-4 h-4" />
+                Total {config.metric}
+              </CardDescription>
+              <CardTitle className="text-3xl text-primary">{config.count}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center text-sm text-green-600">
@@ -200,7 +259,7 @@ const GovernmentPortal = () => {
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
                   <Card>
                     <CardHeader>
-                      <CardTitle>State-wise Restoration Progress</CardTitle>
+                      <CardTitle>State-wise {config.title} Progress</CardTitle>
                       <CardDescription>Top performing states</CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -219,7 +278,7 @@ const GovernmentPortal = () => {
 
                   <Card>
                     <CardHeader>
-                      <CardTitle>Water Restoration Index</CardTitle>
+                      <CardTitle>{config.title} Index</CardTitle>
                       <CardDescription>State performance metrics</CardDescription>
                     </CardHeader>
                     <CardContent>
