@@ -20,6 +20,14 @@ const AuthPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [selectedRole, setSelectedRole] = useState<"government" | "ngo" | "research" | "citizen" | null>(null);
+
+  const roles = [
+    { id: "government" as const, label: "Government Official", icon: "🏛️" },
+    { id: "ngo" as const, label: "NGO/Organization", icon: "🤝" },
+    { id: "research" as const, label: "Researcher/Academic", icon: "🔬" },
+    { id: "citizen" as const, label: "Citizen", icon: "👤" },
+  ];
 
   useEffect(() => {
     // Set up auth state listener FIRST
@@ -56,6 +64,11 @@ const AuthPage = () => {
       return;
     }
 
+    if (!selectedRole) {
+      toast.error("Please select your role");
+      return;
+    }
+
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters");
       return;
@@ -72,6 +85,7 @@ const AuthPage = () => {
         emailRedirectTo: redirectUrl,
         data: {
           name: name,
+          role: selectedRole,
         }
       }
     });
@@ -174,6 +188,26 @@ const AuthPage = () => {
             <TabsContent value="signup">
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
+                  <Label>Select Your Role</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {roles.map((role) => (
+                      <button
+                        key={role.id}
+                        type="button"
+                        onClick={() => setSelectedRole(role.id)}
+                        className={`p-3 border-2 rounded-lg text-left transition-all ${
+                          selectedRole === role.id
+                            ? 'border-primary bg-primary/10'
+                            : 'border-border hover:border-primary/50'
+                        }`}
+                      >
+                        <div className="text-2xl mb-1">{role.icon}</div>
+                        <div className="text-sm font-medium">{role.label}</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-2">
                   <Label htmlFor="signup-name">Full Name</Label>
                   <Input
                     id="signup-name"
@@ -206,7 +240,7 @@ const AuthPage = () => {
                     required
                   />
                 </div>
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={loading || !selectedRole}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Create Account
                 </Button>

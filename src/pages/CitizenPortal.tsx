@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -37,8 +39,26 @@ import ImpactTiers from "@/components/ImpactTiers";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 
 const CitizenPortal = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("home");
   const { environment } = useEnvironment();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        navigate("/auth");
+      } else {
+        setLoading(false);
+      }
+    };
+    checkAuth();
+  }, [navigate]);
+
+  if (loading) {
+    return <div className="min-h-screen bg-background flex items-center justify-center">Loading...</div>;
+  }
   
   const userStats = {
     ecoPoints: 2450,
