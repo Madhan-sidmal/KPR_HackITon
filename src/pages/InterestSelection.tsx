@@ -44,7 +44,7 @@ const InterestSelection = () => {
 
   const handleSelection = (environmentId: EnvironmentView) => {
     setEnvironment(environmentId);
-    navigate("/");
+    navigate("/portal-selection");
   };
 
   return (
@@ -102,7 +102,7 @@ const InterestSelection = () => {
             variant="ghost"
             onClick={() => {
               setEnvironment("water"); // Default
-              navigate("/");
+              navigate("/portal-selection");
             }}
             className="text-muted-foreground hover:text-foreground"
           >

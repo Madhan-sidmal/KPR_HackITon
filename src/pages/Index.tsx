@@ -11,12 +11,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Building2, Users, Brain, UserCircle, ArrowRight, Droplet, Wind, Globe, Target, TrendingUp, Zap, Shield, Network, BarChart3, Sparkles, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import type { User } from "@supabase/supabase-js";
 import type { EnvironmentView } from "@/components/EnvironmentToggle";
 
 const Index = () => {
   const navigate = useNavigate();
   const [selectedEnvironment, setSelectedEnvironment] = useState<EnvironmentView | null>(null);
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+      // If user is logged in and on landing page, redirect to interest selection
+      if (user) {
+        navigate("/interest-selection");
+      }
+    });
+  }, [navigate]);
 
   const portals = [
     {

@@ -149,10 +149,10 @@ const StorytellingHero = () => {
             <Button 
               size="lg"
               className="bg-gradient-to-r from-primary via-secondary to-accent hover:shadow-glow transition-all duration-300 hover:scale-105 text-lg px-8"
-              onClick={() => navigate("/interest")}
+              onClick={() => navigate("/auth")}
             >
               <Sparkles className="mr-2 h-5 w-5" />
-              Choose Your Focus
+              Get Started
             </Button>
             <Button 
               size="lg" 
