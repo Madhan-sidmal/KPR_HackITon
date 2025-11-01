@@ -28,9 +28,7 @@ import {
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
 import PolicySimulator from "@/components/PolicySimulator";
 import AutomatedComplianceEngine from "@/components/AutomatedComplianceEngine";
 import MinisterialBriefing from "@/components/MinisterialBriefing";
@@ -39,27 +37,9 @@ import RestorationEfficiencyTracker from "@/components/RestorationEfficiencyTrac
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 
 const GovernmentPortal = () => {
-  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeView, setActiveView] = useState("dashboard");
   const { environment } = useEnvironment();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        navigate("/auth");
-      } else {
-        setLoading(false);
-      }
-    };
-    checkAuth();
-  }, [navigate]);
-
-  if (loading) {
-    return <div className="min-h-screen bg-background flex items-center justify-center">Loading...</div>;
-  }
 
   const states = [
     { name: "Maharashtra", restored: 1240, progress: 78, index: 8.4 },

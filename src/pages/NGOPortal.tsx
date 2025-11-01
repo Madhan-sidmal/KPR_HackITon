@@ -25,9 +25,6 @@ import {
   Trash2
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ImpactReportGenerator from "@/components/ImpactReportGenerator";
@@ -37,25 +34,7 @@ import DonationTransparency from "@/components/DonationTransparency";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 
 const NGOPortal = () => {
-  const navigate = useNavigate();
   const { environment } = useEnvironment();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        navigate("/auth");
-      } else {
-        setLoading(false);
-      }
-    };
-    checkAuth();
-  }, [navigate]);
-
-  if (loading) {
-    return <div className="min-h-screen bg-background flex items-center justify-center">Loading...</div>;
-  }
 
   const environmentConfig = {
     water: {
