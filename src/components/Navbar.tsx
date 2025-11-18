@@ -6,12 +6,16 @@ import AuthModal from "./AuthModal";
 import logo from "@/assets/logo-paryavaran-sahyog.png";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
+import { useUserRole } from "@/hooks/useUserRole";
+import { Badge } from "@/components/ui/badge";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
+  const { userRole } = useUserRole();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,15 +30,35 @@ const Navbar = () => {
     // Check current session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchUserProfile(session.user.id);
+      }
     });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        fetchUserProfile(session.user.id);
+      } else {
+        setUserName(null);
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const fetchUserProfile = async (userId: string) => {
+    const { data } = await supabase
+      .from("profiles")
+      .select("name")
+      .eq("id", userId)
+      .single();
+    
+    if (data) {
+      setUserName(data.name);
+    }
+  };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -107,7 +131,17 @@ const Navbar = () => {
               Marketplace
             </Button>
             {user ? (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
+                <div className="hidden lg:flex flex-col items-end">
+                  <span className="text-sm font-medium text-foreground">
+                    {userName || "User"}
+                  </span>
+                  {userRole && (
+                    <Badge variant="secondary" className="text-xs capitalize">
+                      {userRole}
+                    </Badge>
+                  )}
+                </div>
                 <Button 
                   onClick={() => navigate("/account")}
                   size="sm"
