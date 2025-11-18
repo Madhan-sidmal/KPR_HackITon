@@ -231,7 +231,7 @@ const CitizenPortal = () => {
         </div>
       </div>
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 pt-24">
         {/* Home View */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Welcome, Citizen!</h1>
