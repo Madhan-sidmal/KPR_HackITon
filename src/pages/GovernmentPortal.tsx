@@ -35,11 +35,37 @@ import MinisterialBriefing from "@/components/MinisterialBriefing";
 import SmartFundAllocation from "@/components/SmartFundAllocation";
 import RestorationEfficiencyTracker from "@/components/RestorationEfficiencyTracker";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
+import { useUserRole } from "@/hooks/useUserRole";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const GovernmentPortal = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeView, setActiveView] = useState("dashboard");
   const { environment } = useEnvironment();
+  const { userRole, loading } = useUserRole();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && userRole !== "government") {
+      navigate("/");
+    }
+  }, [userRole, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (userRole !== "government") {
+    return null;
+  }
 
   const states = [
     { name: "Maharashtra", restored: 1240, progress: 78, index: 8.4 },

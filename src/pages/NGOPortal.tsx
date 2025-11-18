@@ -32,9 +32,35 @@ import CoalitionBuilder from "@/components/CoalitionBuilder";
 import SmartImpactScoring from "@/components/SmartImpactScoring";
 import DonationTransparency from "@/components/DonationTransparency";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
+import { useUserRole } from "@/hooks/useUserRole";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const NGOPortal = () => {
   const { environment } = useEnvironment();
+  const { userRole, loading } = useUserRole();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && userRole !== "ngo") {
+      navigate("/");
+    }
+  }, [userRole, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (userRole !== "ngo") {
+    return null;
+  }
 
   const environmentConfig = {
     water: {

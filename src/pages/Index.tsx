@@ -11,12 +11,59 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Building2, Users, Brain, UserCircle, ArrowRight, Droplet, Wind, Globe, Target, TrendingUp, Zap, Shield, Network, BarChart3, Sparkles, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { EnvironmentView } from "@/components/EnvironmentToggle";
+import AuthModal from "@/components/AuthModal";
+import { useUserRole } from "@/hooks/useUserRole";
+import { toast } from "sonner";
 
 const Index = () => {
   const navigate = useNavigate();
   const [selectedEnvironment, setSelectedEnvironment] = useState<EnvironmentView | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [targetPortal, setTargetPortal] = useState<string>("");
+  const { userRole, loading } = useUserRole();
+
+  useEffect(() => {
+    if (!loading && userRole && targetPortal) {
+      const roleMap: Record<string, string> = {
+        "/government": "government",
+        "/ngo": "ngo",
+        "/research": "research",
+        "/citizen": "citizen"
+      };
+      
+      if (roleMap[targetPortal] === userRole) {
+        navigate(targetPortal);
+      } else {
+        toast.error(`Please log in with a ${roleMap[targetPortal]} account to access this portal`);
+        setShowAuthModal(true);
+      }
+      setTargetPortal("");
+    }
+  }, [userRole, loading, targetPortal, navigate]);
+
+  const handlePortalClick = (href: string) => {
+    if (!userRole) {
+      setTargetPortal(href);
+      setShowAuthModal(true);
+      return;
+    }
+
+    const roleMap: Record<string, string> = {
+      "/government": "government",
+      "/ngo": "ngo",
+      "/research": "research",
+      "/citizen": "citizen"
+    };
+
+    if (roleMap[href] === userRole) {
+      navigate(href);
+    } else {
+      toast.error(`Please log in with a ${roleMap[href]} account to access this portal`);
+      setShowAuthModal(true);
+    }
+  };
 
   const portals = [
     {
@@ -175,7 +222,7 @@ const Index = () => {
                   <Card 
                     key={portal.title} 
                     className="hover:shadow-water transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
-                    onClick={() => navigate(portal.href)}
+                    onClick={() => handlePortalClick(portal.href)}
                   >
                     <CardHeader>
                       <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${portal.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
@@ -522,6 +569,9 @@ const Index = () => {
       <AIAssistant />
       
       <Footer />
+
+      {/* Auth Modal */}
+      <AuthModal open={showAuthModal} onOpenChange={setShowAuthModal} />
     </div>
   );
 };
