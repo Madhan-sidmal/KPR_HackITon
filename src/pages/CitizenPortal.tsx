@@ -35,10 +35,36 @@ import BadgeShowcase from "@/components/BadgeShowcase";
 import AirQualityMap from "@/components/AirQualityMap";
 import ImpactTiers from "@/components/ImpactTiers";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
+import { useUserRole } from "@/hooks/useUserRole";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const CitizenPortal = () => {
   const [activeTab, setActiveTab] = useState("home");
   const { environment } = useEnvironment();
+  const { userRole, loading } = useUserRole();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && userRole !== "citizen") {
+      navigate("/");
+    }
+  }, [userRole, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (userRole !== "citizen") {
+    return null;
+  }
   
   const userStats = {
     ecoPoints: 2450,
