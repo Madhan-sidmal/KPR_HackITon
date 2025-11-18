@@ -65,13 +65,14 @@ const Index = () => {
     }
   };
 
-  const portals = [
+  const allPortals = [
     {
       title: "Government Portal",
       description: "Access state-wise analytics, approve partnerships, and view AI-driven policy insights",
       icon: Building2,
       color: "from-blue-500 to-cyan-500",
       href: "/government",
+      role: "government",
       features: ["State Analytics", "NGO Approvals", "AI Policy Insights", "Hotspot Maps"]
     },
     {
@@ -80,6 +81,7 @@ const Index = () => {
       icon: Users,
       color: "from-green-500 to-emerald-500",
       href: "/ngo",
+      role: "ngo",
       features: ["Project Mapping", "Donor Analytics", "Impact Feed", "Photo/Video Upload"]
     },
     {
@@ -88,6 +90,7 @@ const Index = () => {
       icon: Brain,
       color: "from-purple-500 to-pink-500",
       href: "/research",
+      role: "research",
       features: ["Dataset Library", "AI Model Repository", "Research Publications", "Auto-Insights Feed"]
     },
     {
@@ -96,9 +99,15 @@ const Index = () => {
       icon: UserCircle,
       color: "from-orange-500 to-yellow-500",
       href: "/citizen",
+      role: "citizen",
       features: ["EcoPoints & Badges", "Geo-tagged Reporting", "Local Map Explorer", "Gamified Challenges"]
     },
   ];
+
+  // Filter portals based on user role - show only matching portal when logged in
+  const portals = userRole 
+    ? allPortals.filter(portal => portal.role === userRole)
+    : allPortals;
 
   const environmentOptions = [
     {
