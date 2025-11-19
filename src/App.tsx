@@ -20,6 +20,8 @@ import CorrelationEnginePage from "./pages/CorrelationEnginePage";
 import EcoHealthScorePage from "./pages/EcoHealthScorePage";
 import PolicySimulatorPage from "./pages/PolicySimulatorPage";
 import AccountPage from "./pages/AccountPage";
+import VerifyEmail from "./pages/VerifyEmail";
+import CompleteProfile from "./pages/CompleteProfile";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +34,8 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
+            <Route path="/complete-profile" element={<CompleteProfile />} />
             <Route path="/interest" element={<InterestSelection />} />
             <Route path="/air-quality-map" element={<AirQualityMapPage />} />
             <Route path="/government" element={<GovernmentPortal />} />

@@ -32,20 +32,11 @@ import CoalitionBuilder from "@/components/CoalitionBuilder";
 import SmartImpactScoring from "@/components/SmartImpactScoring";
 import DonationTransparency from "@/components/DonationTransparency";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
-import { useUserRole } from "@/hooks/useUserRole";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 
 const NGOPortal = () => {
   const { environment } = useEnvironment();
-  const { userRole, loading } = useUserRole();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loading && userRole !== "ngo") {
-      navigate("/");
-    }
-  }, [userRole, loading, navigate]);
+  const { loading } = useAuthGuard("ngo");
 
   if (loading) {
     return (
@@ -56,10 +47,6 @@ const NGOPortal = () => {
         </div>
       </div>
     );
-  }
-
-  if (userRole !== "ngo") {
-    return null;
   }
 
   const environmentConfig = {

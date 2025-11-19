@@ -25,20 +25,11 @@ import PredictiveSandbox from "@/components/PredictiveSandbox";
 import GrantFinder from "@/components/GrantFinder";
 import PeerReviewSystem from "@/components/PeerReviewSystem";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
-import { useUserRole } from "@/hooks/useUserRole";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 
 const ResearchPortal = () => {
   const { environment } = useEnvironment();
-  const { userRole, loading } = useUserRole();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loading && userRole !== "research") {
-      navigate("/");
-    }
-  }, [userRole, loading, navigate]);
+  const { loading } = useAuthGuard("research");
 
   if (loading) {
     return (
@@ -49,10 +40,6 @@ const ResearchPortal = () => {
         </div>
       </div>
     );
-  }
-
-  if (userRole !== "research") {
-    return null;
   }
 
   const environmentConfig = {

@@ -16,6 +16,7 @@ import type { EnvironmentView } from "@/components/EnvironmentToggle";
 import AuthModal from "@/components/AuthModal";
 import { useUserRole } from "@/hooks/useUserRole";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -25,32 +26,65 @@ const Index = () => {
   const { userRole, loading } = useUserRole();
 
   useEffect(() => {
-    // Check localStorage for targetPortal on mount
-    const storedTarget = localStorage.getItem('targetPortal');
-    if (storedTarget && !targetPortal) {
-      setTargetPortal(storedTarget);
-    }
-  }, []);
+    const checkAndRedirect = async () => {
+      if (loading) return;
 
-  useEffect(() => {
-    if (!loading && userRole && targetPortal) {
-      const roleMap: Record<string, string> = {
-        "/government": "government",
-        "/ngo": "ngo",
-        "/research": "research",
-        "/citizen": "citizen"
-      };
+      const storedTarget = localStorage.getItem('targetPortal');
       
-      if (roleMap[targetPortal] === userRole) {
-        localStorage.removeItem('targetPortal');
-        navigate(targetPortal);
-      } else {
-        toast.error(`Please log in with a ${roleMap[targetPortal]} account to access this portal`);
-        setShowAuthModal(true);
+      if (userRole && storedTarget) {
+        try {
+          // Check email verification
+          const { data: { user } } = await supabase.auth.getUser();
+          
+          if (!user) {
+            localStorage.removeItem('targetPortal');
+            return;
+          }
+
+          // Check if email is verified
+          if (!user.email_confirmed_at) {
+            toast.error("Please verify your email to continue");
+            navigate("/verify-email");
+            return;
+          }
+
+          // Check if profile is complete
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("name")
+            .eq("id", user.id)
+            .single();
+
+          if (!profile?.name) {
+            toast.error("Please complete your profile to continue");
+            navigate("/complete-profile");
+            return;
+          }
+
+          // Check role match
+          const roleMap: Record<string, string> = {
+            "/government": "government",
+            "/ngo": "ngo",
+            "/research": "research",
+            "/citizen": "citizen"
+          };
+
+          if (roleMap[storedTarget] === userRole) {
+            localStorage.removeItem('targetPortal');
+            navigate(storedTarget);
+          } else {
+            toast.error(`You need a ${roleMap[storedTarget]} account to access this portal`);
+            localStorage.removeItem('targetPortal');
+          }
+        } catch (error) {
+          console.error("Error checking redirect:", error);
+          localStorage.removeItem('targetPortal');
+        }
       }
-      setTargetPortal("");
-    }
-  }, [userRole, loading, targetPortal, navigate]);
+    };
+
+    checkAndRedirect();
+  }, [userRole, loading, navigate]);
 
   const handlePortalClick = (href: string) => {
     if (!userRole) {
