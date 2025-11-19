@@ -25,6 +25,14 @@ const Index = () => {
   const { userRole, loading } = useUserRole();
 
   useEffect(() => {
+    // Check localStorage for targetPortal on mount
+    const storedTarget = localStorage.getItem('targetPortal');
+    if (storedTarget && !targetPortal) {
+      setTargetPortal(storedTarget);
+    }
+  }, []);
+
+  useEffect(() => {
     if (!loading && userRole && targetPortal) {
       const roleMap: Record<string, string> = {
         "/government": "government",
@@ -34,6 +42,7 @@ const Index = () => {
       };
       
       if (roleMap[targetPortal] === userRole) {
+        localStorage.removeItem('targetPortal');
         navigate(targetPortal);
       } else {
         toast.error(`Please log in with a ${roleMap[targetPortal]} account to access this portal`);
@@ -46,6 +55,7 @@ const Index = () => {
   const handlePortalClick = (href: string) => {
     if (!userRole) {
       setTargetPortal(href);
+      localStorage.setItem('targetPortal', href);
       setShowAuthModal(true);
       return;
     }
