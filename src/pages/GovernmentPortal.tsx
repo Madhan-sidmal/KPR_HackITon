@@ -35,22 +35,13 @@ import MinisterialBriefing from "@/components/MinisterialBriefing";
 import SmartFundAllocation from "@/components/SmartFundAllocation";
 import RestorationEfficiencyTracker from "@/components/RestorationEfficiencyTracker";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
-import { useUserRole } from "@/hooks/useUserRole";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useAuthGuard } from "@/hooks/useAuthGuard";
 
 const GovernmentPortal = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeView, setActiveView] = useState("dashboard");
   const { environment } = useEnvironment();
-  const { userRole, loading } = useUserRole();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loading && userRole !== "government") {
-      navigate("/");
-    }
-  }, [userRole, loading, navigate]);
+  const { loading } = useAuthGuard("government");
 
   if (loading) {
     return (
@@ -61,10 +52,6 @@ const GovernmentPortal = () => {
         </div>
       </div>
     );
-  }
-
-  if (userRole !== "government") {
-    return null;
   }
 
   const states = [
