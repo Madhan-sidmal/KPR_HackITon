@@ -38,7 +38,13 @@ const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
       if (error) throw error;
       toast.success("Logged in successfully!");
       onOpenChange(false);
-      window.location.href = "/";
+      // Let the Index page handle the redirect based on targetPortal
+      const targetPortal = localStorage.getItem('targetPortal');
+      if (targetPortal) {
+        window.location.href = "/";
+      } else {
+        window.location.href = "/";
+      }
     } catch (error: any) {
       toast.error(error.message || "Login failed");
     } finally {
