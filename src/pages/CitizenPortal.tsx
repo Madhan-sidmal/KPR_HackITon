@@ -36,6 +36,7 @@ import AirQualityMap from "@/components/AirQualityMap";
 import ImpactTiers from "@/components/ImpactTiers";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
+import OnboardingTutorial from "@/components/OnboardingTutorial";
 
 const CitizenPortal = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -186,6 +187,7 @@ const CitizenPortal = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <OnboardingTutorial role="citizen" />
       <Navbar />
       
       {/* Top Gamification Bar */}

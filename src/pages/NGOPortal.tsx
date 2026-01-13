@@ -33,6 +33,7 @@ import SmartImpactScoring from "@/components/SmartImpactScoring";
 import DonationTransparency from "@/components/DonationTransparency";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
+import OnboardingTutorial from "@/components/OnboardingTutorial";
 
 const NGOPortal = () => {
   const { environment } = useEnvironment();
@@ -155,6 +156,7 @@ const NGOPortal = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <OnboardingTutorial role="ngo" />
       <Navbar />
       
       <main className="container mx-auto px-4 py-24">
