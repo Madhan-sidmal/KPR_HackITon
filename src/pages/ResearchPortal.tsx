@@ -26,6 +26,7 @@ import GrantFinder from "@/components/GrantFinder";
 import PeerReviewSystem from "@/components/PeerReviewSystem";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
+import OnboardingTutorial from "@/components/OnboardingTutorial";
 
 const ResearchPortal = () => {
   const { environment } = useEnvironment();
@@ -151,6 +152,7 @@ const ResearchPortal = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <OnboardingTutorial role="research" />
       <Navbar />
       
       <main className="container mx-auto px-4 py-24">

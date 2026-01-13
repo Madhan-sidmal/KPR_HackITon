@@ -36,6 +36,7 @@ import SmartFundAllocation from "@/components/SmartFundAllocation";
 import RestorationEfficiencyTracker from "@/components/RestorationEfficiencyTracker";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
+import OnboardingTutorial from "@/components/OnboardingTutorial";
 
 const GovernmentPortal = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -157,6 +158,7 @@ const GovernmentPortal = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <OnboardingTutorial role="government" />
       <Navbar />
       
       <div className="flex pt-16">
