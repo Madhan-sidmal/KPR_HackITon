@@ -66,17 +66,11 @@ const Navbar = () => {
   };
 
   const navLinks = [
+    { name: "Dashboard", href: "/dashboard", icon: null },
     { name: "Map", href: "/map", icon: null },
     { name: "Air Quality", href: "/air-quality-map", icon: null },
     { name: "Community", href: "/community", icon: null },
     { name: "Knowledge", href: "/knowledge", icon: null },
-  ];
-
-  const portalLinks = [
-    { name: "Government Portal", href: "/government", icon: Building2 },
-    { name: "NGO Portal", href: "/ngo", icon: Users },
-    { name: "Research Portal", href: "/research", icon: Brain },
-    { name: "Citizen Portal", href: "/citizen", icon: UserCircleIcon },
   ];
 
   return (
@@ -191,31 +185,27 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-3 border-t border-border/50 animate-fade-in">
-            {portalLinks.map((link) => {
-              const Icon = link.icon;
-              return (
-                <button
-                  key={link.name}
-                  onClick={() => {
-                    navigate(link.href);
-                    setIsMenuOpen(false);
-                  }}
-                  className="flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors w-full"
-                >
-                  <Icon className="w-4 h-4" />
-                  {link.name}
-                </button>
-              );
-            })}
+            {navLinks.map((link) => (
+              <button
+                key={link.name}
+                onClick={() => {
+                  navigate(link.href);
+                  setIsMenuOpen(false);
+                }}
+                className="flex items-center gap-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors w-full"
+              >
+                {link.name}
+              </button>
+            ))}
             <Button 
               onClick={() => {
-                navigate("/map");
+                navigate("/dashboard");
                 setIsMenuOpen(false);
               }}
               size="sm"
               className="w-full bg-gradient-to-r from-primary to-secondary hover:shadow-water mt-4"
             >
-              Explore Map
+              Open Dashboard
             </Button>
           </div>
         )}
