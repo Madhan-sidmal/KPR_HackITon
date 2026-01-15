@@ -1,36 +1,34 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Droplet, Wind, Trash2, Users, Sprout, TrendingUp, ArrowRight, Sparkles, Wheat, Store } from "lucide-react";
+import { Droplet, Wind, Trash2, Users, Building2, TrendingUp, ArrowRight, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import ConnectedPlanetBackground from "./ConnectedPlanetBackground";
 import { useNavigate } from "react-router-dom";
 const StorytellingHero = () => {
   const navigate = useNavigate();
   const [stats, setStats] = useState({
-    farmers: 0,
-    hectares: 0,
     waterbodies: 0,
-    aqi: 0
+    aqi: 0,
+    wasteRecycled: 0
   });
   useEffect(() => {
+    // Animate numbers on mount
     const duration = 2000;
     const steps = 60;
     const interval = duration / steps;
     const finalStats = {
-      farmers: 245000,
-      hectares: 1850000,
       waterbodies: 12430,
-      aqi: 145
+      aqi: 145,
+      wasteRecycled: 43
     };
     let step = 0;
     const timer = setInterval(() => {
       step++;
       const progress = step / steps;
       setStats({
-        farmers: Math.floor(finalStats.farmers * progress),
-        hectares: Math.floor(finalStats.hectares * progress),
         waterbodies: Math.floor(finalStats.waterbodies * progress),
-        aqi: Math.floor(finalStats.aqi * progress)
+        aqi: Math.floor(finalStats.aqi * progress),
+        wasteRecycled: Math.floor(finalStats.wasteRecycled * progress)
       });
       if (step >= steps) {
         clearInterval(timer);
@@ -40,35 +38,35 @@ const StorytellingHero = () => {
     return () => clearInterval(timer);
   }, []);
   const stories = [{
-    id: "farming",
-    icon: Wheat,
-    title: "Sustainable Farming",
-    tagline: "From Degradation to Regeneration",
-    stat: `${(stats.hectares / 1000000).toFixed(1)}M+ Hectares`,
-    statLabel: "Under Sustainable Practice",
-    description: "Empowering farmers with AI-driven crop advisories, organic practices, and carbon credit tracking for a greener agricultural future.",
-    color: "from-green-500 to-emerald-500",
-    bgGradient: "from-green-500/10 to-emerald-500/10"
-  }, {
-    id: "market",
-    icon: Store,
-    title: "Farm-to-Market",
-    tagline: "Fair Prices, Direct Trade",
-    stat: `${(stats.farmers / 1000).toFixed(0)}K+`,
-    statLabel: "Farmers Connected",
-    description: "Real-time mandi prices, supply chain transparency, and direct buyer connections eliminating middlemen for better farmer income.",
-    color: "from-orange-500 to-amber-500",
-    bgGradient: "from-orange-500/10 to-amber-500/10"
-  }, {
-    id: "environment",
+    id: "water",
     icon: Droplet,
-    title: "Environmental Intelligence",
-    tagline: "Air, Water & Ecosystem Health",
-    stat: `${stats.waterbodies.toLocaleString()}`,
-    statLabel: "Resources Monitored",
-    description: "Unified monitoring of water bodies, air quality across 145+ cities, and waste management to protect the environment that sustains agriculture.",
+    title: "Water",
+    tagline: "From Drought to Revival",
+    stat: `${stats.waterbodies.toLocaleString()} Tracked`,
+    statLabel: "Water Bodies",
+    description: "Across India, thousands of lakes, rivers, and ponds are being brought back to life. Through community action and AI-powered monitoring, we're reversing decades of water degradation.",
     color: "from-blue-500 to-cyan-500",
     bgGradient: "from-blue-500/10 to-cyan-500/10"
+  }, {
+    id: "air",
+    icon: Wind,
+    title: "Air",
+    tagline: "From Smog to Sky",
+    stat: `${stats.aqi} Cities`,
+    statLabel: "Monitored Daily",
+    description: "Real-time air quality tracking across 145 cities helps citizens, NGOs, and policymakers identify pollution hotspots and take targeted action to clear our skies.",
+    color: "from-yellow-500 to-orange-500",
+    bgGradient: "from-yellow-500/10 to-orange-500/10"
+  }, {
+    id: "waste",
+    icon: Trash2,
+    title: "Waste",
+    tagline: "From Plastic to Purpose",
+    stat: `${stats.wasteRecycled}%`,
+    statLabel: "Recycling Rate",
+    description: "Transforming waste management through smart tracking, community cleanup drives, and circular economy initiatives. Every kilogram recycled is a step toward a cleaner India.",
+    color: "from-green-500 to-emerald-500",
+    bgGradient: "from-green-500/10 to-emerald-500/10"
   }];
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-primary/5 to-secondary/5">
       {/* Connected Planet Background Animation */}
@@ -82,19 +80,19 @@ const StorytellingHero = () => {
             <div className="inline-block mb-2">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border border-primary/20">
                 <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-                <span className="text-sm font-medium">India's Sustainable Agriculture & Environment Intelligence Network</span>
+                <span className="text-sm font-medium">India's Environmental Intelligence Network</span>
               </div>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
               <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                KrishiDhara
+                JeevaDhara
               </span>
             </h1>
             <p className="text-2xl md:text-3xl font-semibold text-muted-foreground">
-              Sustainable Farming • Fair Markets • Healthy Environment
+              India's Air, Water, and Waste – One Future, One Mission
             </p>
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              A unified platform connecting farmers, NGOs, government, and researchers to build sustainable agriculture and protect India's environment
+              A unified platform connecting citizens, NGOs, researchers, and government to monitor, analyze, and restore India's environmental health
             </p>
           </div>
 
@@ -110,9 +108,9 @@ const StorytellingHero = () => {
                       <Icon className="w-8 h-8 text-white" />
                     </div>
                     <CardTitle className="text-2xl flex items-center gap-2">
-                      {story.id === "farming" && "🌾"} 
-                      {story.id === "market" && "🏪"} 
-                      {story.id === "environment" && "🌊"} 
+                      {story.icon === Droplet && "🌊"} 
+                      {story.icon === Wind && "🌫"} 
+                      {story.icon === Trash2 && "♻️"} 
                       {story.title}
                     </CardTitle>
                     <CardDescription className="text-lg font-semibold">
@@ -138,28 +136,6 @@ const StorytellingHero = () => {
           {/* Combined Impact Counter */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12 animate-fade-in">
             <div className="glass-card rounded-2xl p-6 space-y-2 hover:shadow-water transition-all duration-300">
-              <div className="flex items-center justify-center gap-2 text-green-600">
-                <Sprout className="w-6 h-6" />
-                <TrendingUp className="w-4 h-4" />
-              </div>
-              <div className="text-3xl md:text-4xl font-bold text-foreground">
-                {(stats.farmers / 1000).toFixed(0)}K+
-              </div>
-              <div className="text-sm text-muted-foreground">Farmers Connected</div>
-            </div>
-
-            <div className="glass-card rounded-2xl p-6 space-y-2 hover:shadow-water transition-all duration-300">
-              <div className="flex items-center justify-center gap-2 text-orange-600">
-                <Wheat className="w-6 h-6" />
-                <TrendingUp className="w-4 h-4" />
-              </div>
-              <div className="text-3xl md:text-4xl font-bold text-foreground">
-                {(stats.hectares / 1000000).toFixed(1)}M+
-              </div>
-              <div className="text-sm text-muted-foreground">Hectares Monitored</div>
-            </div>
-
-            <div className="glass-card rounded-2xl p-6 space-y-2 hover:shadow-water transition-all duration-300">
               <div className="flex items-center justify-center gap-2 text-blue-600">
                 <Droplet className="w-6 h-6" />
                 <TrendingUp className="w-4 h-4" />
@@ -171,14 +147,36 @@ const StorytellingHero = () => {
             </div>
 
             <div className="glass-card rounded-2xl p-6 space-y-2 hover:shadow-water transition-all duration-300">
-              <div className="flex items-center justify-center gap-2 text-accent">
-                <Users className="w-6 h-6" />
+              <div className="flex items-center justify-center gap-2 text-yellow-600">
+                <Wind className="w-6 h-6" />
                 <TrendingUp className="w-4 h-4" />
               </div>
               <div className="text-3xl md:text-4xl font-bold text-foreground">
                 {stats.aqi}
               </div>
               <div className="text-sm text-muted-foreground">Cities AQI Monitored</div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-6 space-y-2 hover:shadow-water transition-all duration-300">
+              <div className="flex items-center justify-center gap-2 text-green-600">
+                <Trash2 className="w-6 h-6" />
+                <TrendingUp className="w-4 h-4" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-foreground">
+                {stats.wasteRecycled}%
+              </div>
+              <div className="text-sm text-muted-foreground">Recycling Rate</div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-6 space-y-2 hover:shadow-water transition-all duration-300">
+              <div className="flex items-center justify-center gap-2 text-accent">
+                <Users className="w-6 h-6" />
+                <TrendingUp className="w-4 h-4" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-foreground">
+                1.2M+
+              </div>
+              <div className="text-sm text-muted-foreground">Citizens Engaged</div>
             </div>
           </div>
         </div>

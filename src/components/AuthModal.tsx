@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Leaf, Mail, Lock, User, Building2, Users as UsersIcon, Landmark, Sprout } from "lucide-react";
+import { Droplet, Mail, Lock, User, Building2, Users as UsersIcon, Brain, UserCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -21,27 +21,10 @@ const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
   const [name, setName] = useState("");
 
   const roles = [
-    { 
-      id: "public_user", 
-      label: "Public User", 
-      sublabel: "Citizens, Communities, Farmers",
-      icon: Sprout, 
-      color: "from-green-500 to-emerald-500" 
-    },
-    { 
-      id: "action_partner", 
-      label: "Action Partner", 
-      sublabel: "NGOs, Community Orgs, CSR",
-      icon: UsersIcon, 
-      color: "from-orange-500 to-amber-500" 
-    },
-    { 
-      id: "authority", 
-      label: "Authority", 
-      sublabel: "Government, Local Bodies",
-      icon: Landmark, 
-      color: "from-blue-500 to-indigo-500" 
-    }
+    { id: "citizen", label: "Citizen", icon: UserCircle, color: "from-orange-500 to-yellow-500" },
+    { id: "ngo", label: "NGO", icon: UsersIcon, color: "from-green-500 to-emerald-500" },
+    { id: "government", label: "Government", icon: Building2, color: "from-blue-500 to-cyan-500" },
+    { id: "research", label: "Researcher", icon: Brain, color: "from-purple-500 to-pink-500" }
   ];
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -104,11 +87,11 @@ const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <div className="flex items-center justify-center gap-2 mb-2">
-            <Leaf className="w-6 h-6 text-primary" />
-            <DialogTitle className="text-2xl">Welcome to KrishiDhara</DialogTitle>
+            <Droplet className="w-6 h-6 text-primary" />
+            <DialogTitle className="text-2xl">Welcome to JalSahyog</DialogTitle>
           </div>
           <DialogDescription className="text-center">
-            India's Sustainable Agriculture & Environment Intelligence Network
+            Join India's largest water restoration ecosystem
           </DialogDescription>
         </DialogHeader>
 
@@ -166,7 +149,7 @@ const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
             <form onSubmit={handleSignup} className="space-y-4">
               <div className="space-y-2">
                 <Label>Select Your Role</Label>
-              <div className="grid grid-cols-1 gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   {roles.map((role) => {
                     const Icon = role.icon;
                     return (
@@ -174,19 +157,16 @@ const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
                         key={role.id}
                         type="button"
                         onClick={() => setSelectedRole(role.id)}
-                        className={`p-3 rounded-lg border-2 transition-all flex items-center gap-3 ${
+                        className={`p-4 rounded-lg border-2 transition-all ${
                           selectedRole === role.id
                             ? 'border-primary bg-primary/10'
                             : 'border-muted hover:border-primary/50'
                         }`}
                       >
-                        <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${role.color} flex items-center justify-center shrink-0`}>
+                        <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${role.color} flex items-center justify-center mx-auto mb-2`}>
                           <Icon className="w-5 h-5 text-white" />
                         </div>
-                        <div className="text-left">
-                          <div className="text-sm font-medium">{role.label}</div>
-                          <div className="text-xs text-muted-foreground">{role.sublabel}</div>
-                        </div>
+                        <div className="text-sm font-medium">{role.label}</div>
                       </button>
                     );
                   })}

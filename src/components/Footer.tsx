@@ -1,18 +1,18 @@
-import { Leaf } from "lucide-react";
+import { Droplet } from "lucide-react";
 
 const Footer = () => {
   const footerSections = [
     {
       title: "Platform",
-      links: ["Interactive Map", "Market Prices", "Weather Alerts", "Crop Advisory"],
+      links: ["Interactive Map", "Featured Projects", "Research Portal", "Leaderboard"],
     },
     {
       title: "Get Involved",
-      links: ["Join as Farmer", "Action Partners", "For Authorities", "Community Hub"],
+      links: ["Register as NGO", "Join as Citizen", "For Researchers", "Government Portal"],
     },
     {
       title: "Resources",
-      links: ["Knowledge Hub", "API Access", "Data Downloads", "Success Stories"],
+      links: ["Documentation", "API Access", "Data Downloads", "Success Stories"],
     },
     {
       title: "About",
@@ -27,11 +27,11 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1 space-y-4">
             <div className="flex items-center gap-2">
-              <Leaf className="w-8 h-8" />
-              <span className="text-2xl font-bold">KrishiDhara</span>
+              <Droplet className="w-8 h-8" fill="currentColor" />
+              <span className="text-2xl font-bold">JalSahyog</span>
             </div>
             <p className="text-white/80 text-sm leading-relaxed">
-              India's Sustainable Agriculture & Environment Intelligence Network. Connecting farmers, communities, and authorities for a greener future.
+              Together for a water-secure India. Connecting communities, research, and action.
             </p>
           </div>
 
@@ -58,9 +58,9 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
-            <p>© 2025 KrishiDhara. All rights reserved.</p>
+            <p>© 2025 JalSahyog. All rights reserved.</p>
             <div className="flex items-center gap-4">
-              <span>Made with 🌱 for India</span>
+              <span>Made with 💧 for India</span>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Leaf, Menu, X, Landmark, Users, Sprout, UserCircle as UserCircleIcon, ShoppingBag, LogOut } from "lucide-react";
+import { Droplet, Menu, X, Building2, Users, Brain, UserCircle as UserCircleIcon, ShoppingBag, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthModal from "./AuthModal";
@@ -73,9 +73,10 @@ const Navbar = () => {
   ];
 
   const portalLinks = [
-    { name: "Public Portal", href: "/public", icon: Sprout },
-    { name: "Partner Portal", href: "/partner", icon: Users },
-    { name: "Authority Portal", href: "/authority", icon: Landmark },
+    { name: "Government Portal", href: "/government", icon: Building2 },
+    { name: "NGO Portal", href: "/ngo", icon: Users },
+    { name: "Research Portal", href: "/research", icon: Brain },
+    { name: "Citizen Portal", href: "/citizen", icon: UserCircleIcon },
   ];
 
   return (
@@ -97,13 +98,13 @@ const Navbar = () => {
             <div className="relative">
               <img 
                 src={logo} 
-                alt="KrishiDhara Logo" 
+                alt="ParyavaranSahyog Logo" 
                 className="w-10 h-10 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3"
               />
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-primary via-primary-glow to-secondary bg-clip-text text-transparent transition-all duration-300 group-hover:tracking-wide">
-              KrishiDhara
+              ParyavaranSahyog
             </span>
           </a>
 
