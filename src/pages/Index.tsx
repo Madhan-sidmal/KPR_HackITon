@@ -109,32 +109,49 @@ const Index = () => {
     }
   };
 
-  const roleOptions = [
+  const allPortals = [
     {
-      title: "Public User",
-      description: "Report issues, explore environmental data, and join community actions",
-      icon: UserCircle,
-      color: "from-orange-500 to-yellow-500",
-      role: "public_user",
-      features: ["Report Issues", "Explore Map", "Join Actions", "View Impact"]
-    },
-    {
-      title: "Action Partner",
-      description: "NGOs & CSR teams: Validate and take action on reported issues",
-      icon: Users,
-      color: "from-green-500 to-emerald-500",
-      role: "action_partner",
-      features: ["Validate Issues", "Execute Actions", "Track Progress", "Collaborate"]
-    },
-    {
-      title: "Authority",
-      description: "Government bodies: Acknowledge, respond, and mark resolutions",
+      title: "Government Portal",
+      description: "Access state-wise analytics, approve partnerships, and view AI-driven policy insights",
       icon: Building2,
       color: "from-blue-500 to-cyan-500",
-      role: "authority",
-      features: ["Respond to Issues", "Mark Resolved", "View Analytics", "Policy Insights"]
+      href: "/government",
+      role: "government",
+      features: ["State Analytics", "NGO Approvals", "AI Policy Insights", "Hotspot Maps"]
+    },
+    {
+      title: "NGO Portal",
+      description: "Manage restoration projects, track funding, and collaborate with researchers",
+      icon: Users,
+      color: "from-green-500 to-emerald-500",
+      href: "/ngo",
+      role: "ngo",
+      features: ["Project Mapping", "Donor Analytics", "Impact Feed", "Photo/Video Upload"]
+    },
+    {
+      title: "Research Portal",
+      description: "Access datasets, publish AI models, and share research insights",
+      icon: Brain,
+      color: "from-purple-500 to-pink-500",
+      href: "/research",
+      role: "research",
+      features: ["Dataset Library", "AI Model Repository", "Research Publications", "Auto-Insights Feed"]
+    },
+    {
+      title: "Citizen Portal",
+      description: "Earn EcoPoints, join challenges, and report local water issues",
+      icon: UserCircle,
+      color: "from-orange-500 to-yellow-500",
+      href: "/citizen",
+      role: "citizen",
+      features: ["EcoPoints & Badges", "Geo-tagged Reporting", "Local Map Explorer", "Gamified Challenges"]
     },
   ];
+
+  // Filter portals based on user role - show only matching portal when logged in
+  const portals = userRole 
+    ? allPortals.filter(portal => portal.role === userRole)
+    : allPortals;
 
   const environmentOptions = [
     {
@@ -236,52 +253,56 @@ const Index = () => {
           </div>
         </section>
         
-        {/* Unified Dashboard CTA */}
-        <section id="portals" className="py-20 bg-muted/30">
+        {/* Portal Selection Section */}
+        <section id="portals" className={`py-20 bg-muted/30 transition-all duration-500 ${
+          selectedEnvironment ? 'opacity-100' : 'opacity-40 pointer-events-none'
+        }`}>
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">One Platform, Three Roles</h2>
+              <h2 className="text-4xl font-bold mb-4">Choose Your Portal</h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Same unified dashboard for everyone. Your role determines your actions.
+                {selectedEnvironment === "water" && "Access water restoration tools and features for your role"}
+                {selectedEnvironment === "air" && "Access air quality monitoring tools and features for your role"}
+                {selectedEnvironment === "waste" && "Access waste management tools and features for your role"}
+                {!selectedEnvironment && "Select an environmental focus above to continue"}
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-8">
-              {roleOptions.map((option) => {
-                const Icon = option.icon;
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {portals.map((portal) => {
+                const Icon = portal.icon;
                 return (
-                  <Card key={option.title} className="hover:shadow-lg transition-all">
+                  <Card 
+                    key={portal.title} 
+                    className="hover:shadow-water transition-all duration-300 hover:-translate-y-2 cursor-pointer group"
+                    onClick={() => handlePortalClick(portal.href)}
+                  >
                     <CardHeader>
-                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${option.color} flex items-center justify-center mb-4 mx-auto`}>
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${portal.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                         <Icon className="w-8 h-8 text-white" />
                       </div>
-                      <CardTitle className="text-xl text-center">{option.title}</CardTitle>
-                      <CardDescription className="text-center">{option.description}</CardDescription>
+                      <CardTitle className="text-xl">{portal.title}</CardTitle>
+                      <CardDescription className="text-sm">
+                        {portal.description}
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <ul className="space-y-2">
-                        {option.features.map((feature) => (
+                      <ul className="space-y-2 mb-4">
+                        {portal.features.map((feature) => (
                           <li key={feature} className="text-sm text-muted-foreground flex items-center gap-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                             {feature}
                           </li>
                         ))}
                       </ul>
+                      <Button className="w-full group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary" variant="outline">
+                        Access Portal
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </Button>
                     </CardContent>
                   </Card>
                 );
               })}
-            </div>
-
-            <div className="text-center">
-              <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-primary to-secondary hover:shadow-water"
-                onClick={() => navigate("/dashboard")}
-              >
-                Open Dashboard
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
             </div>
           </div>
         </section>
