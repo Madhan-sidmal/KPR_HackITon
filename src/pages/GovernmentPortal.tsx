@@ -37,11 +37,13 @@ import RestorationEfficiencyTracker from "@/components/RestorationEfficiencyTrac
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import OnboardingTutorial from "@/components/OnboardingTutorial";
+import EnvironmentToggle from "@/components/EnvironmentToggle";
 
 const GovernmentPortal = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeView, setActiveView] = useState("dashboard");
-  const { environment } = useEnvironment();
+  const { environment, setEnvironment } = useEnvironment();
+  
   const { loading } = useAuthGuard("government");
 
   if (loading) {
@@ -208,6 +210,7 @@ const GovernmentPortal = () => {
                   <p className="text-muted-foreground">National {config.title} Dashboard</p>
                 </div>
               </div>
+              <EnvironmentToggle view={environment} onViewChange={setEnvironment} />
             </div>
 
             {/* Stats Overview */}

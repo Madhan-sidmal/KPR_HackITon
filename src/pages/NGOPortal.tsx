@@ -34,9 +34,10 @@ import DonationTransparency from "@/components/DonationTransparency";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import OnboardingTutorial from "@/components/OnboardingTutorial";
+import EnvironmentToggle from "@/components/EnvironmentToggle";
 
 const NGOPortal = () => {
-  const { environment } = useEnvironment();
+  const { environment, setEnvironment } = useEnvironment();
   const { loading } = useAuthGuard("ngo");
 
   if (loading) {
@@ -178,9 +179,12 @@ const NGOPortal = () => {
                 <p className="text-muted-foreground">Protecting India's water bodies since 2015</p>
               </div>
             </div>
-            <Button variant="outline">
-              Edit Profile
-            </Button>
+            <div className="flex items-center gap-3">
+              <EnvironmentToggle view={environment} onViewChange={setEnvironment} />
+              <Button variant="outline">
+                Edit Profile
+              </Button>
+            </div>
           </div>
         </div>
 

@@ -14,6 +14,78 @@ export type Database = {
   }
   public: {
     Tables: {
+      issues: {
+        Row: {
+          actioned_at: string | null
+          actioned_by: string | null
+          created_at: string
+          crop_stress_level: Database["public"]["Enums"]["risk_level"] | null
+          description: string
+          domain: Database["public"]["Enums"]["issue_domain"]
+          drinking_water_risk: Database["public"]["Enums"]["risk_level"] | null
+          id: string
+          irrigation_impact: Database["public"]["Enums"]["risk_level"] | null
+          latitude: number | null
+          location_name: string
+          longitude: number | null
+          photo_url: string | null
+          reported_by: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          seasonal_relevance: string | null
+          soil_health_risk: Database["public"]["Enums"]["risk_level"] | null
+          status: Database["public"]["Enums"]["issue_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          actioned_at?: string | null
+          actioned_by?: string | null
+          created_at?: string
+          crop_stress_level?: Database["public"]["Enums"]["risk_level"] | null
+          description: string
+          domain: Database["public"]["Enums"]["issue_domain"]
+          drinking_water_risk?: Database["public"]["Enums"]["risk_level"] | null
+          id?: string
+          irrigation_impact?: Database["public"]["Enums"]["risk_level"] | null
+          latitude?: number | null
+          location_name: string
+          longitude?: number | null
+          photo_url?: string | null
+          reported_by?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          seasonal_relevance?: string | null
+          soil_health_risk?: Database["public"]["Enums"]["risk_level"] | null
+          status?: Database["public"]["Enums"]["issue_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          actioned_at?: string | null
+          actioned_by?: string | null
+          created_at?: string
+          crop_stress_level?: Database["public"]["Enums"]["risk_level"] | null
+          description?: string
+          domain?: Database["public"]["Enums"]["issue_domain"]
+          drinking_water_risk?: Database["public"]["Enums"]["risk_level"] | null
+          id?: string
+          irrigation_impact?: Database["public"]["Enums"]["risk_level"] | null
+          latitude?: number | null
+          location_name?: string
+          longitude?: number | null
+          photo_url?: string | null
+          reported_by?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          seasonal_relevance?: string | null
+          soil_health_risk?: Database["public"]["Enums"]["risk_level"] | null
+          status?: Database["public"]["Enums"]["issue_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -70,7 +142,17 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      app_role: "citizen" | "ngo" | "government" | "research"
+      app_role:
+        | "citizen"
+        | "ngo"
+        | "government"
+        | "research"
+        | "public_user"
+        | "action_partner"
+        | "authority"
+      issue_domain: "air" | "water" | "waste"
+      issue_status: "reported" | "actioned" | "resolved"
+      risk_level: "low" | "medium" | "high"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -198,7 +280,18 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["citizen", "ngo", "government", "research"],
+      app_role: [
+        "citizen",
+        "ngo",
+        "government",
+        "research",
+        "public_user",
+        "action_partner",
+        "authority",
+      ],
+      issue_domain: ["air", "water", "waste"],
+      issue_status: ["reported", "actioned", "resolved"],
+      risk_level: ["low", "medium", "high"],
     },
   },
 } as const
