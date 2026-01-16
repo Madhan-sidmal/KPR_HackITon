@@ -11,49 +11,34 @@ interface EnvironmentToggleProps {
 }
 
 const EnvironmentToggle = ({ view, onViewChange, className = "", showLabel = true }: EnvironmentToggleProps) => {
+  const options = [
+    { id: "water" as EnvironmentView, label: "Water", icon: Droplet },
+    { id: "air" as EnvironmentView, label: "Air", icon: Wind },
+    { id: "waste" as EnvironmentView, label: "Waste", icon: Trash2 },
+  ];
+
   return (
-    <div className={`flex items-center gap-2 p-1 bg-card/80 backdrop-blur-sm rounded-lg border shadow-sm ${className}`}>
-      <Button
-        variant={view === "water" ? "default" : "ghost"}
-        size="sm"
-        onClick={() => onViewChange("water")}
-        className={`gap-2 transition-all ${
-          view === "water" 
-            ? "bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600" 
-            : "hover:bg-blue-50 dark:hover:bg-blue-950"
-        }`}
-      >
-        <Droplet className="w-4 h-4" />
-        {showLabel && <span className="hidden sm:inline">Water</span>}
-      </Button>
-      
-      <Button
-        variant={view === "air" ? "default" : "ghost"}
-        size="sm"
-        onClick={() => onViewChange("air")}
-        className={`gap-2 transition-all ${
-          view === "air" 
-            ? "bg-gradient-to-r from-yellow-500 to-orange-500 text-white hover:from-yellow-600 hover:to-orange-600" 
-            : "hover:bg-yellow-50 dark:hover:bg-yellow-950"
-        }`}
-      >
-        <Wind className="w-4 h-4" />
-        {showLabel && <span className="hidden sm:inline">Air</span>}
-      </Button>
-      
-      <Button
-        variant={view === "waste" ? "default" : "ghost"}
-        size="sm"
-        onClick={() => onViewChange("waste")}
-        className={`gap-2 transition-all ${
-          view === "waste" 
-            ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600" 
-            : "hover:bg-green-50 dark:hover:bg-green-950"
-        }`}
-      >
-        <Trash2 className="w-4 h-4" />
-        {showLabel && <span className="hidden sm:inline">Waste</span>}
-      </Button>
+    <div className={`flex items-center gap-1 p-1 bg-card/80 backdrop-blur-sm rounded-lg border shadow-sm ${className}`}>
+      {options.map((option) => {
+        const Icon = option.icon;
+        const isActive = view === option.id;
+        return (
+          <Button
+            key={option.id}
+            variant={isActive ? "default" : "ghost"}
+            size="sm"
+            onClick={() => onViewChange(option.id)}
+            className={`gap-2 transition-all ${
+              isActive 
+                ? "bg-primary text-primary-foreground hover:bg-primary/90" 
+                : "hover:bg-muted"
+            }`}
+          >
+            <Icon className="w-4 h-4" />
+            {showLabel && <span className="hidden sm:inline">{option.label}</span>}
+          </Button>
+        );
+      })}
     </div>
   );
 };
