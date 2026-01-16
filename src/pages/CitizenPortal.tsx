@@ -37,10 +37,11 @@ import ImpactTiers from "@/components/ImpactTiers";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import OnboardingTutorial from "@/components/OnboardingTutorial";
+import EnvironmentToggle from "@/components/EnvironmentToggle";
 
 const CitizenPortal = () => {
   const [activeTab, setActiveTab] = useState("home");
-  const { environment } = useEnvironment();
+  const { environment, setEnvironment } = useEnvironment();
   const { loading } = useAuthGuard("citizen");
 
   if (loading) {
@@ -222,9 +223,12 @@ const CitizenPortal = () => {
       
       <main className="container mx-auto px-4 py-8 pt-24">
         {/* Home View */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Welcome, Citizen!</h1>
-          <p className="text-muted-foreground">Track your impact and join local initiatives</p>
+        <div className="mb-8 flex items-start justify-between">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Welcome, Citizen!</h1>
+            <p className="text-muted-foreground">Track your impact and join local initiatives</p>
+          </div>
+          <EnvironmentToggle view={environment} onViewChange={setEnvironment} />
         </div>
 
         {/* Local Status Banner */}

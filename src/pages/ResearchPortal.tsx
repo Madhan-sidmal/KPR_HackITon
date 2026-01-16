@@ -27,9 +27,10 @@ import PeerReviewSystem from "@/components/PeerReviewSystem";
 import { useEnvironment } from "@/contexts/EnvironmentContext";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
 import OnboardingTutorial from "@/components/OnboardingTutorial";
+import EnvironmentToggle from "@/components/EnvironmentToggle";
 
 const ResearchPortal = () => {
-  const { environment } = useEnvironment();
+  const { environment, setEnvironment } = useEnvironment();
   const { loading } = useAuthGuard("research");
 
   if (loading) {
@@ -157,12 +158,15 @@ const ResearchPortal = () => {
       
       <main className="container mx-auto px-4 py-24">
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <Brain className="w-8 h-8 text-secondary" />
-            <h1 className="text-4xl font-bold">Research Portal</h1>
+        <div className="mb-8 flex items-start justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <Brain className="w-8 h-8 text-secondary" />
+              <h1 className="text-4xl font-bold">Research Portal</h1>
+            </div>
+            <p className="text-muted-foreground">Data, models, and insights for {config.title}</p>
           </div>
-          <p className="text-muted-foreground">Data, models, and insights for {config.title}</p>
+          <EnvironmentToggle view={environment} onViewChange={setEnvironment} />
         </div>
 
         {/* Quick Stats */}

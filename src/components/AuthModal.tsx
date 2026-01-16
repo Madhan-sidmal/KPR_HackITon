@@ -74,7 +74,7 @@ const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
       if (error) throw error;
       toast.success("Account created successfully!");
       onOpenChange(false);
-      window.location.href = "/interest";
+      window.location.href = "/";
     } catch (error: any) {
       toast.error(error.message || "Signup failed");
     } finally {
