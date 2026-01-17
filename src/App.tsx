@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import AirQualityMapPage from "./pages/AirQualityMapPage";
 import GovernmentPortal from "./pages/GovernmentPortal";
 import NGOPortal from "./pages/NGOPortal";
-import ResearchPortal from "./pages/ResearchPortal";
 import CitizenPortal from "./pages/CitizenPortal";
 import MapPage from "./pages/MapPage";
 import MarketplacePage from "./pages/MarketplacePage";
@@ -38,7 +37,6 @@ const App = () => (
             <Route path="/air-quality-map" element={<AirQualityMapPage />} />
             <Route path="/government" element={<GovernmentPortal />} />
             <Route path="/ngo" element={<NGOPortal />} />
-            <Route path="/research" element={<ResearchPortal />} />
             <Route path="/citizen" element={<CitizenPortal />} />
             <Route path="/map" element={<MapPage />} />
             <Route path="/marketplace" element={<MarketplacePage />} />
