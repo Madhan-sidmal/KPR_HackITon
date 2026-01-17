@@ -63,7 +63,6 @@ const Index = () => {
           const roleMap: Record<string, string> = {
             "/government": "government",
             "/ngo": "ngo",
-            "/research": "research",
             "/citizen": "citizen"
           };
 
@@ -95,7 +94,6 @@ const Index = () => {
     const roleMap: Record<string, string> = {
       "/government": "government",
       "/ngo": "ngo",
-      "/research": "research",
       "/citizen": "citizen"
     };
 
@@ -125,15 +123,6 @@ const Index = () => {
       href: "/ngo",
       role: "ngo",
       features: ["Project Mapping", "Donor Analytics", "Impact Feed", "Photo/Video Upload"]
-    },
-    {
-      title: "Research Portal",
-      description: "Access datasets, publish AI models, and share research insights",
-      icon: Brain,
-      color: "from-purple-500 to-pink-500",
-      href: "/research",
-      role: "research",
-      features: ["Dataset Library", "AI Model Repository", "Research Publications", "Auto-Insights Feed"]
     },
     {
       title: "Citizen Portal",
