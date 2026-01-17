@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 210 100% 12%;
 
-    /* Vibrant Teal Primary - #00BFA6 */
+    /* Default: Water Theme - Vibrant Teal Primary - #00BFA6 */
     --primary: 168 100% 37%;
     --primary-foreground: 0 0% 100%;
     --primary-glow: 168 100% 50%;
@@ -56,6 +56,51 @@ All colors MUST be HSL.
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* Water Domain Theme - Blue/Teal */
+  .env-water {
+    --primary: 199 89% 48%;
+    --primary-glow: 199 100% 60%;
+    --secondary: 168 100% 37%;
+    --muted: 199 15% 96%;
+    --muted-foreground: 199 10% 45%;
+    --border: 199 20% 90%;
+    --input: 199 20% 90%;
+    --ring: 199 89% 48%;
+    --shadow-soft: 0 2px 20px -4px hsl(199 89% 48% / 0.1);
+    --shadow-water: 0 8px 32px -8px hsl(199 89% 48% / 0.25);
+    --shadow-glow: 0 0 40px hsl(199 100% 60% / 0.3);
+  }
+
+  /* Air Domain Theme - Amber/Orange */
+  .env-air {
+    --primary: 38 92% 50%;
+    --primary-glow: 38 100% 60%;
+    --secondary: 25 95% 53%;
+    --muted: 38 15% 96%;
+    --muted-foreground: 38 10% 45%;
+    --border: 38 20% 90%;
+    --input: 38 20% 90%;
+    --ring: 38 92% 50%;
+    --shadow-soft: 0 2px 20px -4px hsl(38 92% 50% / 0.1);
+    --shadow-water: 0 8px 32px -8px hsl(38 92% 50% / 0.25);
+    --shadow-glow: 0 0 40px hsl(38 100% 60% / 0.3);
+  }
+
+  /* Waste Domain Theme - Green/Emerald */
+  .env-waste {
+    --primary: 152 69% 41%;
+    --primary-glow: 152 80% 50%;
+    --secondary: 142 71% 45%;
+    --muted: 152 15% 96%;
+    --muted-foreground: 152 10% 45%;
+    --border: 152 20% 90%;
+    --input: 152 20% 90%;
+    --ring: 152 69% 41%;
+    --shadow-soft: 0 2px 20px -4px hsl(152 69% 41% / 0.1);
+    --shadow-water: 0 8px 32px -8px hsl(152 69% 41% / 0.25);
+    --shadow-glow: 0 0 40px hsl(152 80% 50% / 0.3);
   }
 }
 

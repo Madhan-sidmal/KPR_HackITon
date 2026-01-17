@@ -22,7 +22,16 @@ import {
   MapPinned,
   Droplet,
   Wind,
-  Trash2
+  Recycle,
+  Gauge,
+  Thermometer,
+  Waves,
+  Factory,
+  TreePine,
+  Trash2,
+  RotateCcw,
+  Leaf,
+  AlertTriangle
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import Navbar from "@/components/Navbar";
@@ -51,8 +60,16 @@ const NGOPortal = () => {
     );
   }
 
+  // Domain-specific configurations
   const environmentConfig = {
     water: {
+      title: "Water Conservation Hub",
+      subtitle: "Protecting India's water bodies since 2015",
+      orgName: "Waterkeeper Alliance India",
+      icon: Droplet,
+      bgGradient: "from-sky-500/10 via-blue-500/5 to-cyan-500/10",
+      headerGradient: "from-sky-500 to-blue-600",
+      cardAccent: "border-l-4 border-l-sky-500",
       projects: [
         {
           id: 1,
@@ -63,6 +80,7 @@ const NGOPortal = () => {
           volunteers: 450,
           funding: { raised: 4200000, goal: 5000000 },
           verified: true,
+          metrics: { waterQuality: "+35%", biodiversity: "+28 species", areaRestored: "45 hectares" }
         },
         {
           id: 2,
@@ -73,22 +91,37 @@ const NGOPortal = () => {
           volunteers: 120,
           funding: { raised: 800000, goal: 2000000 },
           verified: false,
+          metrics: { waterQuality: "Baseline", biodiversity: "Survey pending", areaRestored: "12 hectares" }
         },
       ],
-      stat1: { label: "Waterbodies Restored", value: 8 },
-      icon: Droplet
+      stats: [
+        { label: "Waterbodies Restored", value: 8, icon: Waves },
+        { label: "Water Quality Improved", value: "35%", icon: Droplet },
+        { label: "Communities Served", value: 24, icon: Users },
+        { label: "National Rank", value: "#12", icon: Trophy }
+      ],
+      features: ["Water Quality Monitoring", "Biodiversity Tracking", "Wetland Mapping", "Community Well Testing"],
+      quickActions: ["Add Water Sample", "Report Pollution", "Schedule Cleanup"]
     },
     air: {
+      title: "Air Quality Action Center",
+      subtitle: "Breathing clean air for healthy communities",
+      orgName: "Clean Air India Initiative",
+      icon: Wind,
+      bgGradient: "from-amber-500/10 via-orange-500/5 to-yellow-500/10",
+      headerGradient: "from-amber-400 to-orange-500",
+      cardAccent: "border-l-4 border-l-amber-500",
       projects: [
         {
           id: 1,
-          name: "City Air Quality Monitoring",
+          name: "City Air Quality Monitoring Network",
           location: "Delhi NCR",
           status: "In Progress",
           progress: 65,
           volunteers: 320,
           funding: { raised: 3500000, goal: 5000000 },
           verified: true,
+          metrics: { aqiImprovement: "-15%", stationsDeployed: 24, alertsSent: 1250 }
         },
         {
           id: 2,
@@ -99,54 +132,70 @@ const NGOPortal = () => {
           volunteers: 180,
           funding: { raised: 1200000, goal: 3000000 },
           verified: false,
+          metrics: { treesPlanted: 500, aqiImprovement: "Pending", corridorLength: "5km" }
         },
       ],
-      stat1: { label: "Air Quality Stations", value: 12 },
-      icon: Wind
+      stats: [
+        { label: "Monitoring Stations", value: 45, icon: Gauge },
+        { label: "Avg AQI Reduction", value: "18%", icon: Wind },
+        { label: "Trees Planted", value: "12K", icon: TreePine },
+        { label: "National Rank", value: "#8", icon: Trophy }
+      ],
+      features: ["Real-time AQI Dashboard", "Emission Source Tracking", "Health Impact Analysis", "Green Zone Mapping"],
+      quickActions: ["Report Emission", "Add Sensor Data", "Plant Trees Event"]
     },
     waste: {
+      title: "Waste Management Hub",
+      subtitle: "Building circular economy solutions",
+      orgName: "Zero Waste India Network",
+      icon: Recycle,
+      bgGradient: "from-emerald-500/10 via-green-500/5 to-teal-500/10",
+      headerGradient: "from-emerald-500 to-green-600",
+      cardAccent: "border-l-4 border-l-emerald-500",
       projects: [
         {
           id: 1,
-          name: "Zero Waste Initiative",
+          name: "Zero Waste Ward Initiative",
           location: "Indore, Madhya Pradesh",
           status: "In Progress",
           progress: 82,
           volunteers: 560,
           funding: { raised: 4800000, goal: 6000000 },
           verified: true,
+          metrics: { wasteReduced: "75%", recyclingRate: "92%", composting: "850 tons" }
         },
         {
           id: 2,
-          name: "Recycling Hub Setup",
+          name: "E-Waste Collection Network",
           location: "Pune, Maharashtra",
           status: "Planning",
           progress: 40,
           volunteers: 240,
           funding: { raised: 1800000, goal: 4000000 },
           verified: false,
+          metrics: { collectionPoints: 12, ewasteCollected: "2.5 tons", awarenessEvents: 8 }
         },
       ],
-      stat1: { label: "Waste Centers Setup", value: 15 },
-      icon: Trash2
+      stats: [
+        { label: "Waste Centers", value: 28, icon: Recycle },
+        { label: "Waste Diverted", value: "85%", icon: RotateCcw },
+        { label: "Composting Sites", value: 15, icon: Leaf },
+        { label: "National Rank", value: "#5", icon: Trophy }
+      ],
+      features: ["Waste Segregation Tracking", "Recycler Network", "Composting Dashboard", "E-Waste Management"],
+      quickActions: ["Log Collection", "Report Dumping", "Schedule Pickup"]
     }
   };
 
   const config = environmentConfig[environment];
   const myProjects = config.projects;
+  const DomainIcon = config.icon;
 
   const recentDonors = [
     { name: "Priya Sharma", amount: 5000, date: "2 hours ago" },
     { name: "Tech Corp India", amount: 50000, date: "1 day ago" },
     { name: "Rajesh Kumar", amount: 2500, date: "2 days ago" },
   ];
-
-  const stats = {
-    totalRestored: config.stat1.value,
-    totalVolunteers: 1240,
-    fundsRaised: 12500000,
-    rank: 12,
-  };
 
   const monthlyData = [
     { month: 'Jan', volunteers: 800, funds: 800000 },
@@ -156,89 +205,105 @@ const NGOPortal = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className={`min-h-screen bg-gradient-to-br ${config.bgGradient} transition-colors duration-500`}>
       <OnboardingTutorial role="ngo" />
       <Navbar />
       
       <main className="container mx-auto px-4 py-24">
-        {/* Header with Profile */}
-        <div className="mb-8">
+        {/* Domain-specific Header */}
+        <div className={`mb-8 p-6 rounded-2xl bg-gradient-to-r ${config.headerGradient} text-white shadow-lg`}>
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-2xl">
-                WK
+              <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                <DomainIcon className="w-10 h-10" />
               </div>
               <div>
-                <div className="flex items-center gap-2">
-                  <h1 className="text-3xl font-bold">Waterkeeper Alliance India</h1>
-                  <Badge className="bg-green-600">
+                <div className="flex items-center gap-3 mb-1">
+                  <h1 className="text-3xl font-bold">{config.orgName}</h1>
+                  <Badge className="bg-white/20 text-white border-white/30">
                     <CheckCircle className="w-3 h-3 mr-1" />
                     Verified
                   </Badge>
                 </div>
-                <p className="text-muted-foreground">Protecting India's water bodies since 2015</p>
+                <p className="text-white/80 text-lg">{config.subtitle}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <EnvironmentToggle view={environment} onViewChange={setEnvironment} />
-              <Button variant="outline">
+              <Button variant="secondary" className="bg-white/20 text-white hover:bg-white/30 border-white/30">
                 Edit Profile
               </Button>
             </div>
           </div>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid md:grid-cols-4 gap-4 mb-8">
-          <Card className="glass-card">
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-1">
-                <config.icon className="w-6 h-6 text-primary" />
-                <div className="text-3xl font-bold">{stats.totalRestored}</div>
-              </div>
-              <div className="text-sm text-muted-foreground">{config.stat1.label}</div>
-            </CardContent>
-          </Card>
-
-          <Card className="glass-card">
-            <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-secondary mb-1">{stats.totalVolunteers.toLocaleString()}</div>
-              <div className="text-sm text-muted-foreground">Total Volunteers</div>
-            </CardContent>
-          </Card>
-
-          <Card className="glass-card">
-            <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-accent mb-1">₹{(stats.fundsRaised / 100000).toFixed(1)}L</div>
-              <div className="text-sm text-muted-foreground">Funds Raised</div>
-            </CardContent>
-          </Card>
-
-          <Card className="glass-card">
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 mb-1">
-                <Trophy className="w-6 h-6 text-yellow-500" />
-                <div className="text-3xl font-bold">#{stats.rank}</div>
-              </div>
-              <div className="text-sm text-muted-foreground">National Rank</div>
-            </CardContent>
-          </Card>
+        {/* Quick Actions Bar */}
+        <div className="flex gap-3 mb-8 overflow-x-auto pb-2">
+          {config.quickActions.map((action, idx) => (
+            <Button key={idx} variant="outline" className={`${config.cardAccent} whitespace-nowrap`}>
+              <Plus className="w-4 h-4 mr-2" />
+              {action}
+            </Button>
+          ))}
         </div>
 
+        {/* Domain-specific Stats Grid */}
+        <div className="grid md:grid-cols-4 gap-4 mb-8">
+          {config.stats.map((stat, idx) => {
+            const StatIcon = stat.icon;
+            return (
+              <Card key={idx} className={`glass-card ${config.cardAccent} hover:scale-105 transition-transform`}>
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="p-2 rounded-lg bg-primary/10">
+                      <StatIcon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="text-3xl font-bold text-primary">{stat.value}</div>
+                  </div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Domain-specific Features */}
+        <Card className={`mb-8 ${config.cardAccent}`}>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <DomainIcon className="w-5 h-5 text-primary" />
+              {config.title} - Key Features
+            </CardTitle>
+            <CardDescription>Tools and capabilities for your {environment} initiatives</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-4 gap-4">
+              {config.features.map((feature, idx) => (
+                <div key={idx} className="p-4 rounded-lg bg-primary/5 border border-primary/20 hover:bg-primary/10 transition-colors cursor-pointer">
+                  <div className="flex items-center gap-2">
+                    <DomainIcon className="w-4 h-4 text-primary" />
+                    <span className="font-medium text-sm">{feature}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Map Visualization */}
-        <Card className="mb-8">
+        <Card className={`mb-8 ${config.cardAccent}`}>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <MapPinned className="w-5 h-5 text-primary" />
-              Active Projects Map
+              Active {environment.charAt(0).toUpperCase() + environment.slice(1)} Projects Map
             </CardTitle>
-            <CardDescription>Geographic view of ongoing restoration projects</CardDescription>
+            <CardDescription>Geographic view of ongoing {environment} projects</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="aspect-video bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950 rounded-lg border flex items-center justify-center">
+            <div className={`aspect-video bg-gradient-to-br ${config.bgGradient} rounded-lg border-2 border-primary/20 flex items-center justify-center`}>
               <div className="text-center">
-                <MapPin className="w-12 h-12 mx-auto mb-2 text-primary" />
-                <p className="text-muted-foreground font-medium mb-1">Interactive Project Map</p>
+                <DomainIcon className="w-16 h-16 mx-auto mb-3 text-primary animate-pulse" />
+                <p className="text-foreground font-medium mb-1">Interactive {environment.charAt(0).toUpperCase() + environment.slice(1)} Project Map</p>
                 <p className="text-sm text-muted-foreground">Pinned locations with real-time progress</p>
               </div>
             </div>
@@ -269,11 +334,12 @@ const NGOPortal = () => {
 
             <div className="grid md:grid-cols-2 gap-6">
               {myProjects.map((project) => (
-                <Card key={project.id} className="hover:shadow-water transition-all">
+                <Card key={project.id} className={`hover:shadow-water transition-all ${config.cardAccent}`}>
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="space-y-1">
                         <CardTitle className="flex items-center gap-2">
+                          <DomainIcon className="w-5 h-5 text-primary" />
                           {project.name}
                           {project.verified && (
                             <Badge variant="outline" className="text-green-600 border-green-600">
@@ -286,18 +352,28 @@ const NGOPortal = () => {
                           {project.location}
                         </CardDescription>
                       </div>
-                      <Badge>{project.status}</Badge>
+                      <Badge className="bg-primary/10 text-primary border-primary/30">{project.status}</Badge>
                     </div>
                   </CardHeader>
 
                   <CardContent className="space-y-4">
+                    {/* Domain-specific Metrics */}
+                    <div className="grid grid-cols-3 gap-2 p-3 rounded-lg bg-primary/5 border border-primary/20">
+                      {Object.entries(project.metrics).map(([key, value], idx) => (
+                        <div key={idx} className="text-center">
+                          <div className="text-sm font-semibold text-primary">{String(value)}</div>
+                          <div className="text-xs text-muted-foreground capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+                        </div>
+                      ))}
+                    </div>
+
                     {/* Progress */}
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>Completion</span>
                         <span className="font-semibold text-primary">{project.progress}%</span>
                       </div>
-                      <Progress value={project.progress} />
+                      <Progress value={project.progress} className="h-2" />
                     </div>
 
                     {/* Funding */}
@@ -308,7 +384,7 @@ const NGOPortal = () => {
                           ₹{(project.funding.raised / 100000).toFixed(1)}L / ₹{(project.funding.goal / 100000).toFixed(1)}L
                         </span>
                       </div>
-                      <Progress value={(project.funding.raised / project.funding.goal) * 100} />
+                      <Progress value={(project.funding.raised / project.funding.goal) * 100} className="h-2" />
                     </div>
 
                     {/* Stats */}
@@ -333,7 +409,7 @@ const NGOPortal = () => {
                         <Video className="w-4 h-4 mr-2" />
                         Video
                       </Button>
-                      <Button className="flex-1 bg-gradient-to-r from-primary to-secondary">
+                      <Button className={`flex-1 bg-gradient-to-r ${config.headerGradient}`}>
                         View Details
                       </Button>
                     </div>
@@ -343,16 +419,27 @@ const NGOPortal = () => {
             </div>
 
             {/* Add Project Form */}
-            <Card>
+            <Card className={config.cardAccent}>
               <CardHeader>
-                <CardTitle>Create New Project</CardTitle>
-                <CardDescription>Add a new water restoration project</CardDescription>
+                <CardTitle className="flex items-center gap-2">
+                  <DomainIcon className="w-5 h-5 text-primary" />
+                  Create New {environment.charAt(0).toUpperCase() + environment.slice(1)} Project
+                </CardTitle>
+                <CardDescription>
+                  {environment === 'water' && 'Add a new water restoration or conservation project'}
+                  {environment === 'air' && 'Add a new air quality monitoring or improvement project'}
+                  {environment === 'waste' && 'Add a new waste management or recycling project'}
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Project Name</label>
-                    <Input placeholder="e.g., Lake Restoration Initiative" />
+                    <Input placeholder={
+                      environment === 'water' ? 'e.g., Lake Restoration Initiative' :
+                      environment === 'air' ? 'e.g., Air Quality Monitoring Network' :
+                      'e.g., Zero Waste Community Program'
+                    } />
                   </div>
                   <div className="space-y-2">
                     <label className="text-sm font-medium">Location</label>
@@ -371,8 +458,16 @@ const NGOPortal = () => {
                     <Input type="number" placeholder="5000000" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Waterbody Type</label>
-                    <Input placeholder="Lake / River / Pond" />
+                    <label className="text-sm font-medium">
+                      {environment === 'water' && 'Waterbody Type'}
+                      {environment === 'air' && 'Initiative Type'}
+                      {environment === 'waste' && 'Waste Category'}
+                    </label>
+                    <Input placeholder={
+                      environment === 'water' ? 'Lake / River / Pond' :
+                      environment === 'air' ? 'Monitoring / Green Corridor / Industrial' :
+                      'Recycling / Composting / E-Waste'
+                    } />
                   </div>
                 </div>
 
@@ -386,8 +481,8 @@ const NGOPortal = () => {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Upload Before/After Photos & Video</label>
-                  <div className="border-2 border-dashed rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
-                    <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+                  <div className={`border-2 border-dashed rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer border-primary/30`}>
+                    <Upload className="w-8 h-8 mx-auto mb-2 text-primary" />
                     <p className="text-sm text-muted-foreground">
                       Click to upload photos and short video
                     </p>
@@ -397,9 +492,9 @@ const NGOPortal = () => {
                   </div>
                 </div>
 
-                <Button className="w-full bg-gradient-to-r from-primary to-secondary">
+                <Button className={`w-full bg-gradient-to-r ${config.headerGradient}`}>
                   <Plus className="w-4 h-4 mr-2" />
-                  Create Project
+                  Create {environment.charAt(0).toUpperCase() + environment.slice(1)} Project
                 </Button>
               </CardContent>
             </Card>
@@ -509,19 +604,19 @@ const NGOPortal = () => {
 
           {/* Leaderboard Tab */}
           <TabsContent value="leaderboard">
-            <Card>
+            <Card className={config.cardAccent}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Trophy className="w-6 h-6 text-yellow-500" />
-                  NGO Rankings
+                  NGO Rankings - {environment.charAt(0).toUpperCase() + environment.slice(1)} Domain
                 </CardTitle>
-                <CardDescription>Your rank compared to other NGOs</CardDescription>
+                <CardDescription>Your rank compared to other NGOs in {environment} initiatives</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="mb-6 p-6 bg-gradient-to-r from-yellow-500/10 to-primary/10 rounded-lg border border-yellow-500/20 text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">#{stats.rank}</div>
-                  <p className="text-muted-foreground">Your Current Rank</p>
-                  <p className="text-sm text-green-600 mt-2">↑ Up 3 positions this month</p>
+                <div className={`mb-6 p-6 bg-gradient-to-r ${config.headerGradient} rounded-lg text-white text-center`}>
+                  <div className="text-5xl font-bold mb-2">{config.stats[3]?.value || "#12"}</div>
+                  <p className="text-white/80">Your Current Rank</p>
+                  <p className="text-sm text-white/60 mt-2">↑ Up 3 positions this month</p>
                 </div>
                 <div className="text-center text-muted-foreground">
                   <Trophy className="w-12 h-12 mx-auto mb-4 opacity-50" />
