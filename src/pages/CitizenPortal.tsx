@@ -186,17 +186,33 @@ const CitizenPortal = () => {
   const challenges = config.challenges;
   const nearbyLocations = config.locations;
 
+  const DomainIcon = config.icon;
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className={`min-h-screen bg-background env-${environment}`}>
       <OnboardingTutorial role="citizen" />
       <Navbar />
       
-      {/* Top Gamification Bar */}
-      <div className="bg-gradient-to-r from-primary via-secondary to-accent py-4 sticky top-16 z-30 border-b shadow-lg animate-shimmer">
+      {/* Domain-specific Top Gamification Bar */}
+      <div className="bg-gradient-to-r from-primary via-primary/80 to-secondary pt-20 pb-4 border-b shadow-lg">
         <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                <DomainIcon className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-white">Citizen Portal</h1>
+                <p className="text-white/80">{config.title}</p>
+              </div>
+            </div>
+            <EnvironmentToggle view={environment} onViewChange={setEnvironment} />
+          </div>
+          
+          {/* Gamification Stats */}
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2 animate-pulse-glow">
+              <div className="flex items-center gap-2">
                 <Zap className="w-6 h-6 text-yellow-300" />
                 <span className="text-white font-semibold">EcoPoints:</span>
                 <span className="text-3xl font-bold text-white">{userStats.ecoPoints}</span>
@@ -221,30 +237,21 @@ const CitizenPortal = () => {
         </div>
       </div>
       
-      <main className="container mx-auto px-4 py-8 pt-24">
-        {/* Home View */}
-        <div className="mb-8 flex items-start justify-between">
-          <div>
-            <h1 className="text-4xl font-bold mb-2">Welcome, Citizen!</h1>
-            <p className="text-muted-foreground">Track your impact and join local initiatives</p>
-          </div>
-          <EnvironmentToggle view={environment} onViewChange={setEnvironment} />
-        </div>
-
+      <main className="container mx-auto px-4 py-8">
         {/* Local Status Banner */}
-        <Card className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10">
+        <Card className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <Badge className="mb-2">Auto-detected Location: Bangalore</Badge>
+                <Badge className="mb-2 bg-primary/20 text-primary border-primary/30">Auto-detected Location: Bangalore</Badge>
                 <h2 className="text-2xl font-bold mb-1 flex items-center gap-2">
-                  <config.icon className="w-6 h-6" />
+                  <DomainIcon className="w-6 h-6 text-primary" />
                   {config.title}
                 </h2>
                 <p className="text-muted-foreground">Current condition: Good • {config.statusMessage}</p>
               </div>
               <Button 
-                className="bg-gradient-to-r from-primary to-secondary"
+                className="bg-gradient-to-r from-primary to-secondary hover:opacity-90"
                 onClick={() => setActiveTab("map")}
               >
                 <Map className="w-4 h-4 mr-2" />

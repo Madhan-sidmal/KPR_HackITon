@@ -158,12 +158,32 @@ const GovernmentPortal = () => {
     { id: "leaderboard", label: "Leaderboard", icon: Trophy },
   ];
 
+  const DomainIcon = config.icon;
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className={`min-h-screen bg-background env-${environment}`}>
       <OnboardingTutorial role="government" />
       <Navbar />
       
-      <div className="flex pt-16">
+      {/* Domain-specific Header Banner */}
+      <div className="bg-gradient-to-r from-primary via-primary/80 to-secondary pt-20 pb-6 border-b shadow-lg">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                <DomainIcon className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-white">Government Portal</h1>
+                <p className="text-white/80">National {config.title} Dashboard</p>
+              </div>
+            </div>
+            <EnvironmentToggle view={environment} onViewChange={setEnvironment} />
+          </div>
+        </div>
+      </div>
+      
+      <div className="flex">
         {/* Sidebar */}
         <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] bg-card border-r transition-all duration-300 z-40 ${
           sidebarOpen ? 'w-64' : 'w-0'
@@ -192,25 +212,17 @@ const GovernmentPortal = () => {
         }`}>
           <div className="container mx-auto px-4 py-8">
             {/* Header */}
-            <div className="mb-8 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setSidebarOpen(!sidebarOpen)}
-                  className="mr-2"
-                >
-                  {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                </Button>
-                <div>
-                  <div className="flex items-center gap-3">
-                    <Building2 className="w-8 h-8 text-secondary" />
-                    <h1 className="text-4xl font-bold">Government Portal</h1>
-                  </div>
-                  <p className="text-muted-foreground">National {config.title} Dashboard</p>
-                </div>
-              </div>
-              <EnvironmentToggle view={environment} onViewChange={setEnvironment} />
+            <div className="mb-8 flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+              >
+                {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </Button>
+              <h2 className="text-2xl font-semibold">
+                {menuItems.find(item => item.id === activeView)?.label || 'Dashboard'}
+              </h2>
             </div>
 
             {/* Stats Overview */}
