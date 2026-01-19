@@ -58,49 +58,49 @@ All colors MUST be HSL.
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
-  /* Water Domain Theme - Blue/Teal */
+  /* Water Domain Theme - Muted Blue/Slate */
   .env-water {
-    --primary: 199 89% 48%;
-    --primary-glow: 199 100% 60%;
-    --secondary: 168 100% 37%;
-    --muted: 199 15% 96%;
-    --muted-foreground: 199 10% 45%;
-    --border: 199 20% 90%;
-    --input: 199 20% 90%;
-    --ring: 199 89% 48%;
-    --shadow-soft: 0 2px 20px -4px hsl(199 89% 48% / 0.1);
-    --shadow-water: 0 8px 32px -8px hsl(199 89% 48% / 0.25);
-    --shadow-glow: 0 0 40px hsl(199 100% 60% / 0.3);
+    --primary: 200 45% 42%;
+    --primary-glow: 200 40% 52%;
+    --secondary: 190 35% 38%;
+    --muted: 200 12% 96%;
+    --muted-foreground: 200 15% 40%;
+    --border: 200 15% 88%;
+    --input: 200 15% 88%;
+    --ring: 200 45% 42%;
+    --shadow-soft: 0 2px 20px -4px hsl(200 45% 42% / 0.08);
+    --shadow-water: 0 8px 32px -8px hsl(200 45% 42% / 0.15);
+    --shadow-glow: 0 0 40px hsl(200 40% 52% / 0.15);
   }
 
-  /* Air Domain Theme - Amber/Orange */
+  /* Air Domain Theme - Muted Amber/Warm Gray */
   .env-air {
-    --primary: 38 92% 50%;
-    --primary-glow: 38 100% 60%;
-    --secondary: 25 95% 53%;
-    --muted: 38 15% 96%;
-    --muted-foreground: 38 10% 45%;
-    --border: 38 20% 90%;
-    --input: 38 20% 90%;
-    --ring: 38 92% 50%;
-    --shadow-soft: 0 2px 20px -4px hsl(38 92% 50% / 0.1);
-    --shadow-water: 0 8px 32px -8px hsl(38 92% 50% / 0.25);
-    --shadow-glow: 0 0 40px hsl(38 100% 60% / 0.3);
+    --primary: 35 45% 48%;
+    --primary-glow: 35 40% 55%;
+    --secondary: 28 40% 45%;
+    --muted: 35 12% 96%;
+    --muted-foreground: 35 15% 40%;
+    --border: 35 15% 88%;
+    --input: 35 15% 88%;
+    --ring: 35 45% 48%;
+    --shadow-soft: 0 2px 20px -4px hsl(35 45% 48% / 0.08);
+    --shadow-water: 0 8px 32px -8px hsl(35 45% 48% / 0.15);
+    --shadow-glow: 0 0 40px hsl(35 40% 55% / 0.15);
   }
 
-  /* Waste Domain Theme - Green/Emerald */
+  /* Waste Domain Theme - Muted Sage/Olive */
   .env-waste {
-    --primary: 152 69% 41%;
-    --primary-glow: 152 80% 50%;
-    --secondary: 142 71% 45%;
-    --muted: 152 15% 96%;
-    --muted-foreground: 152 10% 45%;
-    --border: 152 20% 90%;
-    --input: 152 20% 90%;
-    --ring: 152 69% 41%;
-    --shadow-soft: 0 2px 20px -4px hsl(152 69% 41% / 0.1);
-    --shadow-water: 0 8px 32px -8px hsl(152 69% 41% / 0.25);
-    --shadow-glow: 0 0 40px hsl(152 80% 50% / 0.3);
+    --primary: 150 35% 38%;
+    --primary-glow: 150 30% 48%;
+    --secondary: 142 30% 42%;
+    --muted: 150 12% 96%;
+    --muted-foreground: 150 15% 40%;
+    --border: 150 15% 88%;
+    --input: 150 15% 88%;
+    --ring: 150 35% 38%;
+    --shadow-soft: 0 2px 20px -4px hsl(150 35% 38% / 0.08);
+    --shadow-water: 0 8px 32px -8px hsl(150 35% 38% / 0.15);
+    --shadow-glow: 0 0 40px hsl(150 30% 48% / 0.15);
   }
 }
 
