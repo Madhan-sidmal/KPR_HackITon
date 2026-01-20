@@ -58,49 +58,49 @@ All colors MUST be HSL.
     --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
-  /* Water Domain Theme - Muted Blue/Slate */
+  /* Water Domain Theme - Modern Matte Blue */
   .env-water {
-    --primary: 200 45% 42%;
-    --primary-glow: 200 40% 52%;
-    --secondary: 190 35% 38%;
-    --muted: 200 12% 96%;
-    --muted-foreground: 200 15% 40%;
-    --border: 200 15% 88%;
-    --input: 200 15% 88%;
-    --ring: 200 45% 42%;
-    --shadow-soft: 0 2px 20px -4px hsl(200 45% 42% / 0.08);
-    --shadow-water: 0 8px 32px -8px hsl(200 45% 42% / 0.15);
-    --shadow-glow: 0 0 40px hsl(200 40% 52% / 0.15);
+    --primary: 200 55% 45%;
+    --primary-glow: 200 50% 55%;
+    --secondary: 190 50% 42%;
+    --muted: 200 15% 96%;
+    --muted-foreground: 200 20% 38%;
+    --border: 200 18% 86%;
+    --input: 200 18% 86%;
+    --ring: 200 55% 45%;
+    --shadow-soft: 0 2px 20px -4px hsl(200 55% 45% / 0.1);
+    --shadow-water: 0 8px 32px -8px hsl(200 55% 45% / 0.2);
+    --shadow-glow: 0 0 40px hsl(200 50% 55% / 0.2);
   }
 
-  /* Air Domain Theme - Muted Amber/Warm Gray */
+  /* Air Domain Theme - Modern Matte Amber */
   .env-air {
-    --primary: 35 45% 48%;
-    --primary-glow: 35 40% 55%;
-    --secondary: 28 40% 45%;
-    --muted: 35 12% 96%;
-    --muted-foreground: 35 15% 40%;
-    --border: 35 15% 88%;
-    --input: 35 15% 88%;
-    --ring: 35 45% 48%;
-    --shadow-soft: 0 2px 20px -4px hsl(35 45% 48% / 0.08);
-    --shadow-water: 0 8px 32px -8px hsl(35 45% 48% / 0.15);
-    --shadow-glow: 0 0 40px hsl(35 40% 55% / 0.15);
+    --primary: 38 55% 50%;
+    --primary-glow: 38 50% 58%;
+    --secondary: 28 52% 48%;
+    --muted: 38 15% 96%;
+    --muted-foreground: 38 20% 38%;
+    --border: 38 18% 86%;
+    --input: 38 18% 86%;
+    --ring: 38 55% 50%;
+    --shadow-soft: 0 2px 20px -4px hsl(38 55% 50% / 0.1);
+    --shadow-water: 0 8px 32px -8px hsl(38 55% 50% / 0.2);
+    --shadow-glow: 0 0 40px hsl(38 50% 58% / 0.2);
   }
 
-  /* Waste Domain Theme - Muted Sage/Olive */
+  /* Waste Domain Theme - Modern Matte Sage */
   .env-waste {
-    --primary: 150 35% 38%;
-    --primary-glow: 150 30% 48%;
-    --secondary: 142 30% 42%;
-    --muted: 150 12% 96%;
-    --muted-foreground: 150 15% 40%;
-    --border: 150 15% 88%;
-    --input: 150 15% 88%;
-    --ring: 150 35% 38%;
-    --shadow-soft: 0 2px 20px -4px hsl(150 35% 38% / 0.08);
-    --shadow-water: 0 8px 32px -8px hsl(150 35% 38% / 0.15);
-    --shadow-glow: 0 0 40px hsl(150 30% 48% / 0.15);
+    --primary: 152 50% 40%;
+    --primary-glow: 152 45% 50%;
+    --secondary: 142 48% 45%;
+    --muted: 152 15% 96%;
+    --muted-foreground: 152 20% 38%;
+    --border: 152 18% 86%;
+    --input: 152 18% 86%;
+    --ring: 152 50% 40%;
+    --shadow-soft: 0 2px 20px -4px hsl(152 50% 40% / 0.1);
+    --shadow-water: 0 8px 32px -8px hsl(152 50% 40% / 0.2);
+    --shadow-glow: 0 0 40px hsl(152 45% 50% / 0.2);
   }
 }
 
