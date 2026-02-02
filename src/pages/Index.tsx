@@ -7,6 +7,7 @@ import GetInvolvedHub from "@/components/GetInvolvedHub";
 import AIAssistant from "@/components/AIAssistant";
 import AirQualitySnapshot from "@/components/AirQualitySnapshot";
 import WasteQualitySnapshot from "@/components/WasteQualitySnapshot";
+import LiveImpactFeed from "@/components/LiveImpactFeed";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building2, Users, Brain, UserCircle, ArrowRight, Globe, Target, TrendingUp, Zap, Shield, Network, BarChart3, Sparkles, Droplet, Wind, Trash2 } from "lucide-react";
@@ -353,7 +354,7 @@ const Index = () => {
 
             <UnifiedStatsCounter />
 
-            <div className="mt-12 grid md:grid-cols-3 gap-6">
+            <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <AirQualitySnapshot />
               
               <Card className="glass-card">
@@ -407,6 +408,19 @@ const Index = () => {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+
+            {/* Live Impact Feed - Community-driven updates */}
+            <div className="mt-12">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold mb-2">For Society, By Society</h3>
+                <p className="text-muted-foreground max-w-xl mx-auto">
+                  Watch real-time impact as citizens, NGOs, and government work together across India
+                </p>
+              </div>
+              <div className="max-w-3xl mx-auto">
+                <LiveImpactFeed />
+              </div>
             </div>
 
             <div className="mt-8">

@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      donations: {
+        Row: {
+          amount: number
+          created_at: string
+          domain: Database["public"]["Enums"]["issue_domain"]
+          donor_id: string | null
+          donor_name: string
+          id: string
+          is_anonymous: boolean
+          location_name: string
+          message: string | null
+          project_name: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          domain: Database["public"]["Enums"]["issue_domain"]
+          donor_id?: string | null
+          donor_name?: string
+          id?: string
+          is_anonymous?: boolean
+          location_name: string
+          message?: string | null
+          project_name: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          domain?: Database["public"]["Enums"]["issue_domain"]
+          donor_id?: string | null
+          donor_name?: string
+          id?: string
+          is_anonymous?: boolean
+          location_name?: string
+          message?: string | null
+          project_name?: string
+        }
+        Relationships: []
+      }
       issues: {
         Row: {
           actioned_at: string | null
@@ -83,6 +122,51 @@ export type Database = {
           status?: Database["public"]["Enums"]["issue_status"]
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      milestones: {
+        Row: {
+          achieved_by: string | null
+          achieved_by_name: string | null
+          achieved_by_type: Database["public"]["Enums"]["app_role"] | null
+          created_at: string
+          description: string
+          domain: Database["public"]["Enums"]["issue_domain"]
+          icon_type: string
+          id: string
+          location_name: string
+          metric_unit: string | null
+          metric_value: number | null
+          title: string
+        }
+        Insert: {
+          achieved_by?: string | null
+          achieved_by_name?: string | null
+          achieved_by_type?: Database["public"]["Enums"]["app_role"] | null
+          created_at?: string
+          description: string
+          domain: Database["public"]["Enums"]["issue_domain"]
+          icon_type?: string
+          id?: string
+          location_name: string
+          metric_unit?: string | null
+          metric_value?: number | null
+          title: string
+        }
+        Update: {
+          achieved_by?: string | null
+          achieved_by_name?: string | null
+          achieved_by_type?: Database["public"]["Enums"]["app_role"] | null
+          created_at?: string
+          description?: string
+          domain?: Database["public"]["Enums"]["issue_domain"]
+          icon_type?: string
+          id?: string
+          location_name?: string
+          metric_unit?: string | null
+          metric_value?: number | null
+          title?: string
         }
         Relationships: []
       }
