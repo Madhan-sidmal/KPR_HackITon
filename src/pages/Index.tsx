@@ -142,6 +142,16 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
+      
+      {/* Static Data Disclaimer Banner */}
+      <div className="bg-amber-500/10 border-b border-amber-500/20">
+        <div className="container mx-auto px-4 py-2">
+          <p className="text-center text-sm text-amber-700 dark:text-amber-400">
+            <span className="font-medium">Demo Mode:</span> All data displayed on this platform is static and for demonstration purposes only. Real-time integrations coming soon.
+          </p>
+        </div>
+      </div>
+      
       <main>
         <StorytellingHero />
         
