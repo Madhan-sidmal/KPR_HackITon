@@ -20,12 +20,20 @@ const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
+  const [showInterestConfirm, setShowInterestConfirm] = useState(false);
+
   const roles = [
-    { id: "citizen", label: "Citizen", icon: UserCircle, color: "from-orange-500 to-yellow-500" },
-    { id: "ngo", label: "NGO", icon: UsersIcon, color: "from-green-500 to-emerald-500" },
-    { id: "government", label: "Government", icon: Building2, color: "from-blue-500 to-cyan-500" },
-    { id: "research", label: "Researcher", icon: Brain, color: "from-purple-500 to-pink-500" }
+    { id: "citizen", label: "Citizen", icon: UserCircle, color: "from-orange-500 to-yellow-500", comingSoon: false },
+    { id: "ngo", label: "NGO", icon: UsersIcon, color: "from-green-500 to-emerald-500", comingSoon: false },
+    { id: "government", label: "Government", icon: Building2, color: "from-blue-500 to-cyan-500", comingSoon: false },
+    { id: "research", label: "Researcher", icon: Brain, color: "from-purple-500 to-pink-500", comingSoon: true }
   ];
+
+  const handleInterestClick = (roleId: string) => {
+    // For now, just show a toast - could be stored in database later
+    toast.success("Thanks for your interest! We'll notify you when the Researcher portal launches.");
+    setShowInterestConfirm(true);
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -149,16 +157,43 @@ const AuthModal = ({ open, onOpenChange }: AuthModalProps) => {
             <form onSubmit={handleSignup} className="space-y-4">
               <div className="space-y-2">
                 <Label>Select Your Role</Label>
-                <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                   {roles.map((role) => {
                     const Icon = role.icon;
+                    const isComingSoon = role.comingSoon;
+                    const isSelected = selectedRole === role.id;
+                    
+                    if (isComingSoon) {
+                      return (
+                        <div
+                          key={role.id}
+                          className="p-4 rounded-lg border-2 border-dashed border-muted bg-muted/30 relative overflow-hidden"
+                        >
+                          <div className="absolute top-1 right-1 bg-primary/90 text-primary-foreground text-[10px] px-1.5 py-0.5 rounded-full font-medium">
+                            Coming Soon
+                          </div>
+                          <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${role.color} flex items-center justify-center mx-auto mb-2 opacity-60`}>
+                            <Icon className="w-5 h-5 text-white" />
+                          </div>
+                          <div className="text-sm font-medium text-muted-foreground mb-2">{role.label}</div>
+                          <button
+                            type="button"
+                            onClick={() => handleInterestClick(role.id)}
+                            className="text-xs bg-primary/10 hover:bg-primary/20 text-primary px-2 py-1 rounded-full transition-colors"
+                          >
+                            I'm Interested
+                          </button>
+                        </div>
+                      );
+                    }
+                    
                     return (
                       <button
                         key={role.id}
                         type="button"
                         onClick={() => setSelectedRole(role.id)}
                         className={`p-4 rounded-lg border-2 transition-all ${
-                          selectedRole === role.id
+                          isSelected
                             ? 'border-primary bg-primary/10'
                             : 'border-muted hover:border-primary/50'
                         }`}
