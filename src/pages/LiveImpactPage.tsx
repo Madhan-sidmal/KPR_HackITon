@@ -31,6 +31,9 @@ import {
   Share2,
   BarChart3,
 } from "lucide-react";
+import AirQualitySnapshot from "@/components/AirQualitySnapshot";
+import WasteQualitySnapshot from "@/components/WasteQualitySnapshot";
+import UnifiedStatsCounter from "@/components/UnifiedStatsCounter";
 import { formatDistanceToNow } from "date-fns";
 
 type FeedItemType = "resolution" | "donation" | "milestone";
@@ -465,7 +468,74 @@ const LiveImpactPage = () => {
           </div>
         </section>
 
-        {/* Main Content */}
+        {/* National Dashboard Section */}
+        <section className="py-8 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <UnifiedStatsCounter />
+
+            <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <AirQualitySnapshot />
+              
+              <Card className="glass-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Droplet className="w-5 h-5 text-blue-600" />
+                    Water Quality Overview
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground">Active restoration projects nationwide</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Lakes Restored</span>
+                      <span className="text-2xl font-bold text-primary">1,240</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Rivers Cleaned</span>
+                      <span className="text-2xl font-bold text-secondary">85</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">NGOs Active</span>
+                      <span className="text-2xl font-bold text-accent">285</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="glass-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Trash2 className="w-5 h-5 text-green-600" />
+                    Waste Management Status
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground">Nationwide recycling and cleanup metrics</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Recycling Rate</span>
+                      <span className="text-2xl font-bold text-green-600">43.6%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Collection Coverage</span>
+                      <span className="text-2xl font-bold text-primary">82%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Cleanup Drives</span>
+                      <span className="text-2xl font-bold text-secondary">342</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="mt-8">
+              <WasteQualitySnapshot />
+            </div>
+          </div>
+        </section>
+
+        {/* Live Impact Feed Section */}
         <section className="py-8">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-5 gap-8">
@@ -476,7 +546,7 @@ const LiveImpactPage = () => {
                     <div className="flex items-center justify-between">
                       <CardTitle className="flex items-center gap-2 text-lg">
                         <Activity className="w-5 h-5 text-primary" />
-                        National Statistics
+                        Real-time Statistics
                       </CardTitle>
                       <Badge variant="outline" className="text-xs flex items-center gap-1">
                         <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />

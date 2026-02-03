@@ -2,15 +2,13 @@ import Navbar from "@/components/Navbar";
 import StorytellingHero from "@/components/StorytellingHero";
 import Footer from "@/components/Footer";
 import InteractiveMap from "@/components/InteractiveMap";
-import UnifiedStatsCounter from "@/components/UnifiedStatsCounter";
+
 import GetInvolvedHub from "@/components/GetInvolvedHub";
 import AIAssistant from "@/components/AIAssistant";
-import AirQualitySnapshot from "@/components/AirQualitySnapshot";
-import WasteQualitySnapshot from "@/components/WasteQualitySnapshot";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Building2, Users, Brain, UserCircle, ArrowRight, Globe, Target, TrendingUp, Zap, Shield, Network, BarChart3, Sparkles, Droplet, Wind, Trash2 } from "lucide-react";
+import { Building2, Users, Brain, UserCircle, ArrowRight, Target, TrendingUp, Zap, Shield, Network, BarChart3, Sparkles, Droplet, Wind, Trash2, Activity, MapPinned } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import AuthModal from "@/components/AuthModal";
@@ -342,95 +340,74 @@ const Index = () => {
           </div>
         </section>
 
-        {/* National Dashboard Section */}
-        <section className="py-20 bg-background">
+        {/* Quick Navigation Section */}
+        <section className="py-20 bg-gradient-to-b from-background to-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Live National Dashboard</h2>
+              <h2 className="text-4xl font-bold mb-4">Explore the Platform</h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Real-time insights into India's environmental health ecosystem
+                Access real-time environmental data and make an impact
               </p>
             </div>
 
-            <UnifiedStatsCounter />
-
-            <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <AirQualitySnapshot />
-              
-              <Card className="glass-card">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Droplet className="w-5 h-5 text-blue-600" />
-                    Water Quality Overview
-                  </CardTitle>
-                  <CardDescription>Active restoration projects nationwide</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Lakes Restored</span>
-                      <span className="text-2xl font-bold text-primary">1,240</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Rivers Cleaned</span>
-                      <span className="text-2xl font-bold text-secondary">85</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">NGOs Active</span>
-                      <span className="text-2xl font-bold text-accent">285</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="glass-card">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Trash2 className="w-5 h-5 text-green-600" />
-                    Waste Management Status
-                  </CardTitle>
-                  <CardDescription>Nationwide recycling and cleanup metrics</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Recycling Rate</span>
-                      <span className="text-2xl font-bold text-green-600">43.6%</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Collection Coverage</span>
-                      <span className="text-2xl font-bold text-primary">82%</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Cleanup Drives</span>
-                      <span className="text-2xl font-bold text-secondary">342</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="mt-8">
-              <WasteQualitySnapshot />
-            </div>
-
-            <div className="mt-12 text-center space-x-4">
-              <Button 
-                size="lg" 
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {/* Live Impact Dashboard Card */}
+              <Card 
+                className="group cursor-pointer hover:shadow-water transition-all duration-300 hover:-translate-y-2 overflow-hidden"
                 onClick={() => navigate("/live-impact")}
-                className="bg-gradient-to-r from-primary to-secondary hover:shadow-water"
               >
-                View Live Impact Feed
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <CardHeader className="pb-4">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Activity className="w-8 h-8 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl">Live Impact Dashboard</CardTitle>
+                  <CardDescription className="text-base">
+                    Real-time environmental data, issue resolutions, donations, and milestones across India
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Real-time Updates</span>
+                    <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">Air Quality</span>
+                    <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">Water Data</span>
+                    <span className="px-3 py-1 bg-green-500/10 text-green-600 rounded-full text-sm">Waste Metrics</span>
+                  </div>
+                  <Button className="w-full group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary">
+                    View Live Dashboard
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Interactive Map Card */}
+              <Card 
+                className="group cursor-pointer hover:shadow-water transition-all duration-300 hover:-translate-y-2 overflow-hidden"
                 onClick={() => navigate("/map")}
               >
-                Explore Interactive Map
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <CardHeader className="pb-4">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary to-accent flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <MapPinned className="w-8 h-8 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl">Interactive Map</CardTitle>
+                  <CardDescription className="text-base">
+                    Explore environmental hotspots, restoration projects, and pollution sources across the nation
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Geo-tagged Data</span>
+                    <span className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">Hotspot Maps</span>
+                    <span className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">Project Locations</span>
+                    <span className="px-3 py-1 bg-orange-500/10 text-orange-600 rounded-full text-sm">Issue Tracking</span>
+                  </div>
+                  <Button variant="outline" className="w-full group-hover:bg-gradient-to-r group-hover:from-secondary group-hover:to-accent group-hover:text-white group-hover:border-transparent">
+                    Explore Map
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
